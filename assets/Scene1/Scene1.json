@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":456,"h":190},
 	"sourceSize": {"w":456,"h":190}
 },
-"go btn_hovered.png":
+"go_btn.png":
 {
 	"frame": {"x":0,"y":259,"w":218,"h":95},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":218,"h":95},
 	"sourceSize": {"w":218,"h":95}
 },
-"go_btn.png":
+"go_btn_hovered.png":
 {
 	"frame": {"x":218,"y":259,"w":218,"h":95},
 	"rotated": false,
@@ -66,6 +66,6 @@
 	"format": "RGBA8888",
 	"size": {"w":456,"h":509},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e2fd21692bad3755cfcc4729573530bb:4d019dca219f409aafeb4eb31da116a7:5e5336dc85d3e10e04eae73a3cf4b0a7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5ac3a6d534c0def046a44f6e87c1e4d3:7a20ac828267a549ae50d76e01c41a34:5e5336dc85d3e10e04eae73a3cf4b0a7$"
 }
 }
