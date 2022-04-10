@@ -2,7 +2,7 @@ function preload(){
   huninn_font = loadFont("assets/jf-openhuninn-1.1/jf-openhuninn-1.1.ttf");
 }
 function setup() {
-  loader = new spriteLoader(["assets/Scene1/Scene1.json", "assets/Scene2/Scene2.json"]);
+  loader = new SpriteLoader("assets/Scene1/Scene1.json");
   createCanvas(windowWidth, windowHeight);
   function show_img(){
     console.log("image_loaded")
@@ -13,10 +13,10 @@ function setup() {
     textFont(huninn_font)
     textAlign(CENTER);
     text("Click to start", width/2, height/2);
-    [w, h] = loader.get_size("Scene1", "cat_small.png");
-    loader.draw_sprite("Scene1", "cat_small.png", 0, 0, w, h);
+    loader.draw("cat_small.png",0 ,0);
+    
   } 
-  loader.load_all(null, show_img);
+  loader.load(show_img);
   
 }
 
