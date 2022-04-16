@@ -46,7 +46,16 @@ function make_scene(scene_name="scene1"){
   bubble.update_self=function(deltaT){
     this.state.y -= deltaT / 10;
   }
-  
+  var cat2 = new SpriteNode(loader.get_handle("cat_small.png"));
+  cat2.update_self = function(deltaT,dw,dh){
+    cat2.set_translate(-this.size[0]*0.52,dh*0.35)
+    if(this.acc_t < 250){
+      this.scale = this.acc_t/100
+    }else{
+      this.scale = 2.5
+    }
+  }
+
   var cat = new Node("cat");
   var cat_face = new Node("cat-face");
   cat.add_child(cat_face);
@@ -120,7 +129,8 @@ function make_scene(scene_name="scene1"){
 
   scene1.add_child(bg);
   scene1.add_child(bubble);
-  scene1.add_child(cat);
+  //scene1.add_child(cat);
+  scene1.add_child(cat2)
   scene1.add_child(cat_tail);
   scene1.add_child(big_title);
   scene1.add_child(go_btn);
