@@ -26,7 +26,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-function make_scene(scene_name="scene1"){
+function make_scene(scene_name="scene1"){      
   loader = new SpriteLoader("assets/Scene1/Scene1.json");    
   var scene1 = new Scene(scene_name);
   
@@ -71,17 +71,34 @@ function make_scene(scene_name="scene1"){
     this.set_translate(dw/2-this.size[0]/2, dh*0.7);
     if(this.mouse_hovered()){
       this.sp_index = 1;
+      cat_face.sp_index = 0;
     }
     else{
       this.sp_index = 0;
+      cat_face.sp_index = 1;
     }
   }
+
+  var water = new Node("water")
+  water.draw_self = function(){
+    fill('rgba(10,10,255,0.3)');
+    noStroke();
+    beginShape();
+    //rect(0,0,windowWidth, windowHeight/3);
+    for(let i = 0; i < windowWidth; i+=10){
+      vertex(i, windowHeight/3 + sin(i/10+this.acc_t/1000)*windowHeight/7);
+    }
+    endShape(CLOSE);
+  }
+  water.set_translate(0, windowHeight*2/3);
+
 
   scene1.add_child(bg);
   scene1.add_child(cat);
   scene1.add_child(cat_tail);
   scene1.add_child(big_title);
   scene1.add_child(go_btn);
+  scene1.add_child(water);
   
 
   loader.load().then(function(loader){
