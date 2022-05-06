@@ -3,6 +3,7 @@ var sm;
 function preload(){
   huninn_font = loadFont("assets/jf-openhuninn-1.1/jf-openhuninn-1.1.ttf");
 }
+
 function setup() {
   cv = createCanvas(windowWidth, windowHeight);
   /*
@@ -12,99 +13,74 @@ function setup() {
   cv.mouseMoved(publishMouseMove);
   */
   sm = new getSceneManager();
-  sm.add_scene(make_scene("scene1"));
+  //sm.add_scene(make_scene("scene1"));
+  sm.addScene(test_scene(sm));
 }
 
 function draw(){
-  
-  sm.update(deltaTime,windowWidth, windowHeight);
+  sm.update(deltaTime);
   sm.render()
 }
-
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-function make_scene(scene_name="scene1"){      
-  loader = new SpriteLoader("assets/Scene1/Scene1.json");    
-  var scene1 = new Scene(scene_name);
-  
-  var bg = new Node("background");
-  bg.draw_self = ()=>{background(color("#FEFFD2"));}
-  
-  var cat = new SpriteNode(loader.get_handle("cat_small.png"));
-  var cat_face = new SpriteNode(loader.get_handle(["cat_face1.png","cat_face2.png"]));
-  cat.add_child(cat_face);
-  cat.update_self = function(deltaT, dw, dh){
-    cat.set_translate(-this.size[0]*0.52,dh*0.25)
-    if(this.acc_t < 250){
-      this.scale = this.acc_t/100
-    }else{
-      this.scale = 2.5
-    }
-  }
-  cat_face.set_translate(370, 87);
-  cat_face.set_scale(0.5)
+function mousePressed(){
+  sm.handleMousePress()
+}
+function mouseReleased(){
+  sm.handleMouseRelease()
+}
+function mouseDragged(event){
+  sm.handleMouseDrag(event)
+}
 
-  var cat_tail = new SpriteNode(loader.get_handle("cat_small.png"));
-  cat_tail.set_scale(2.5)
-  cat_tail.update_self = function(dt,dw,dh){
-    this.set_translate(dw - this.size[0]*0.52, dh*0.25)
-  }
+function mouseWheel(event){
+  sm.handleMouseScroll(event.delta)
+  // disable page scrolling behavior
+  return false
+}
 
 
-  var big_title = new SpriteNode(loader.get_handle("title_small.png")); 
-  var sub_title = new SpriteNode(loader.get_handle("subTitle.png"));
-
-  big_title.add_child(sub_title);
-  big_title.update_self = function(dt,dw,dh){
-    big_title.set_translate(dw/2- this.size[0]/2 ,dh*0.2);
-    big_title.set_scale(2)
-  }
-  
-  sub_title.set_translate(72, 158)
-
-  
-  var go_btn = new SpriteNode(loader.get_handle(["go_btn.png", "go_btn_hovered.png"]));
-  go_btn.update_self = function(dt,dw,dh){
-    this.set_translate(dw/2-this.size[0]/2, dh*0.7);
-    if(this.mouse_hovered()){
-      this.sp_index = 1;
-      cat_face.sp_index = 0;
-    }
-    else{
-      this.sp_index = 0;
-      cat_face.sp_index = 1;
-    }
-  }
-
-  var water = new Node("water")
-  water.draw_self = function(){
-    fill('rgba(10,10,255,0.3)');
+function test_scene(sm){
+  var scene = new Scene("test_scene");
+  var container = new SizeNode("contrainer", windowWidth/2, windowHeight/2);
+  container.drawSelf = function(){
+    fill(0);
     noStroke();
-    beginShape();
-    //rect(0,0,windowWidth, windowHeight/3);
-    for(let i = 0; i < windowWidth; i+=10){
-      vertex(i, windowHeight/3 + sin(i/10+this.acc_t/1000)*windowHeight/7);
-    }
-    endShape(CLOSE);
+    rect(0,0,this.size[0], this.size[1]);
   }
-  water.set_translate(0, windowHeight*2/3);
-
-
-  scene1.add_child(bg);
-  scene1.add_child(cat);
-  scene1.add_child(cat_tail);
-  scene1.add_child(big_title);
-  scene1.add_child(go_btn);
-  scene1.add_child(water);
   
+  var ball = new SizeNode("ball", 100, 100)
+  ball.state.color=color("#FF0000")
+  ball.drawSelf = function(){
+    fill(ball.state.color);
+    noStroke();
+    ellipse(this.size[0]/2,this.size[1]/2,this.size[0], this.size[1]);
+  }
+  ball.onMouseEnter = function(){
+    this.setSize(this.size[0]+20,this.size[1]+20);
+  }
+  ball.onMouseExit = function(){
+    this.setSize(this.size[0]-20,this.size[1]-20);
+  }
+  ball.onMousePress = function(){
+    this.state.color = color("#00FF00");
+  }
+  ball.onMouseRelease = function(){
+    this.state.color = color("#FF0000");
+  }
+  ball.onMouseDrag = function(self, currentPoint, startPoint){
+    this.setTranslate(currentPoint[0]-this.size[0]/2, currentPoint[1]-this.size[1]/2);
+  }
+  ball.onMouseClick = function(){
+    this.setSize(this.size[0]+20,this.size[1]+20);
+  }
 
-  loader.load().then(function(loader){
-    PubSub.publish(scene_name, "activate");
-    PubSub.publish(scene_name, "show");
-  })
-  console.log(scene1)
-  return scene1;
-} 
+  container.addChild(ball);
+  scene.addChild(container);
+  scene.activate();
+  scene.show()
+  return scene;
+}
