@@ -52,7 +52,7 @@ function test_scene(sm){
     rect(0,0,this.size[0], this.size[1]);
   }
   
-  var ball = new SizeNode("ball", 100, 100)
+  var ball = new SizeNode("ball", 100, 100, true, true)
   ball.state.color=color("#FF0000")
   ball.drawSelf = function(){
     fill(ball.state.color);
