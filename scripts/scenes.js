@@ -1,4 +1,4 @@
-function make_scene(scene_name="scene1"){      
+function make_scene(sm, scene_name="scene1"){      
     loader = new SpriteLoader("assets/Scene1/Scene1.json");    
     var scene1 = new Scene(scene_name);
     

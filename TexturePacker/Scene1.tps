@@ -32,7 +32,7 @@
         <key>dpi</key>
         <uint>72</uint>
         <key>dataFormat</key>
-        <string>json-array</string>
+        <string>pixijs4</string>
         <key>textureFileName</key>
         <filename>Scene1.png</filename>
         <key>flipPVR</key>
@@ -136,7 +136,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>Scene1.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -179,13 +179,12 @@
             <key>heuristicMask</key>
             <false/>
             <key>defaultPivotPoint</key>
-            <point_f>0.5,0.5</point_f>
+            <point_f>0,0</point_f>
             <key>writePivotPoints</key>
             <false/>
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../assets/Scene1/agreebox-checked.png</key>
             <key type="filename">../assets/Scene1/agreebox.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -521,7 +520,6 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../assets/Scene1/agreebox-checked.png</filename>
             <filename>../assets/Scene1/agreebox.png</filename>
             <filename>../assets/Scene1/btn-go-hovered.png</filename>
             <filename>../assets/Scene1/btn-go.png</filename>
