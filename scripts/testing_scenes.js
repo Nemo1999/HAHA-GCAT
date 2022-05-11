@@ -18,7 +18,7 @@ function test_scene(sm){
     }
     container.onMousePress = function(){
         if(!ball.mouseHovered){
-            ball.freeze = true;
+            //ball.freeze = true;
             this.state.duringResize = true;
             this.state.onPressSize = [this.drawnSize[0], this.drawnSize[1]];
         }
@@ -35,7 +35,6 @@ function test_scene(sm){
     container.onMouseRelease = function(){
         ball.freeze = false;
         this.state.duringResize = false;
-
     }
 
     whiteBoard.drawSelf = function(){
