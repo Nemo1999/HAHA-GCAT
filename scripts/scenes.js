@@ -1,78 +1,148 @@
-function make_scene(sm, scene_name="scene1"){      
-    loader = new SpriteLoader("assets/Scene1/Scene1.json");    
+function make_scene_1(sm, scene_name="scene1"){      
+    loader = new SpriteLoader("TexturePacker/Scene1.json");    
     var scene1 = new Scene(scene_name);
-    
     var bg = new Node("background");
-    bg.draw_self = ()=>{background(color("#FEFFD2"));}
+    bg.drawSelf = ()=>{background(color("#FEFFD2"));}
+   
+    var cat  = new Node("cat");
+    var cat_body = new SpriteNode(loader.get_handle("cat-body.png"));
+    var cat_tail = new SpriteNode(loader.get_handle("cat-body.png"));
+    var cat_face = new Node("cat_face");
+    var cat_eye1 = new SpriteNode(loader.get_handle(["cat-eye.png", "cat-eye-hovered.png"]));
+    var cat_eye2 = new SpriteNode(loader.get_handle(["cat-eye.png", "cat-eye-hovered.png"]));
+    var cat_mouse = new SpriteNode(loader.get_handle(["cat-mouse.png", "cat-mouse-hovered.png"]));
+    var cat_antenna_left = new SpriteNode(loader.get_handle("cat-antenna-left.png"));
+    var cat_antenna_right = new SpriteNode(loader.get_handle("cat-antenna-right.png"));
+    var title = new SpriteNode(loader.get_handle("title.png"));
+    var btn_go = new SpriteNode(loader.get_handle(["btn-go.png","btn-go-hovered.png"]),false, true);
+    var water = new Node("water")
     
-    var cat = new SpriteNode(loader.get_handle("cat_small.png"));
-    var cat_face = new SpriteNode(loader.get_handle(["cat_face1.png","cat_face2.png"]));
-    cat.add_child(cat_face);
-    cat.update_self = function(deltaT, dw, dh){
-      cat.set_translate(-this.size[0]*0.52,windowHeight*0.25)
-      if(this.acc_t < 250){
-        this.scale = this.acc_t/100
-      }else{
-        this.scale = 2.5
-      }
-    }
-    cat_face.set_translate(370, 87);
-    cat_face.set_scale(0.5)
-  
-    var cat_tail = new SpriteNode(loader.get_handle("cat_small.png"));
-    cat_tail.set_scale(2.5)
-    cat_tail.update_self = function(dt,dw,dh){
-      this.set_translate(windowWidth - this.size[0]*0.52, windowHeight*0.25)
-    }
-  
-  
-    var big_title = new SpriteNode(loader.get_handle("title_small.png")); 
-    var sub_title = new SpriteNode(loader.get_handle("subTitle.png"));
-  
-    big_title.add_child(sub_title);
-    big_title.update_self = function(dt,dw,dh){
-      big_title.set_translate(dw/2- this.size[0]/2 ,dh*0.2);
-      big_title.set_scale(2)
+    
+    title.updateSelf = function(){
+      title.setCenter(windowWidth/2-100, windowHeight*0.35);
+      title.setScale(1.2)
     }
     
-    sub_title.set_translate(72, 158)
-  
+    btn_go.updateSelf = function(){
+      btn_go.setCenter(windowWidth/2, windowHeight*0.7);
+    }
+    btn_go.onMouseEnter = function(){
+      btn_go.nextSprite();
+      cat_eye1.nextSprite();
+      cat_eye2.nextSprite();
+      cat_antenna_left.setRotate(0.2,[0,100]);
+      cat_antenna_right.setRotate(0.1,[0,100]);
+    }
+    btn_go.onMouseExit = function(){
+      btn_go.prevSprite();
+      cat_eye1.prevSprite();
+      cat_eye2.prevSprite();
+      cat_antenna_left.setRotate(0);
+      cat_antenna_right.setRotate(0);
+    }
+
+    cat.addChild(cat_body);
+    cat.addChild(cat_tail);
+    cat_body.addChild(cat_face);
+    cat_face.addChild(cat_eye1);
+    cat_face.addChild(cat_eye2);
+    cat_face.addChild(cat_mouse);
+    cat_face.addChild(cat_antenna_left);
+    cat_face.addChild(cat_antenna_right);
     
-    var go_btn = new SpriteNode(loader.get_handle(["go_btn.png", "go_btn_hovered.png"]));
-    go_btn.update_self = function(dt,dw,dh){
-      this.set_translate(dw/2-this.size[0]/2, dh*0.7);
-      if(this.mouse_hovered()){
-        this.sp_index = 1;
-        cat_face.sp_index = 0;
+    cat_body.updateSelf = function(){
+      var float_height = (water.state.drift11 + water.state.drift12)/2;
+      var float_theta = atan2(water.state.drift12-water.state.drift11,530);
+      this.setTranslate(0,float_height);
+      this.setRotate(float_theta,[250,100]);
+    }
+
+    cat_tail.updateSelf = function(){
+      var w = windowWidth / this.accScale
+      var float_height = (water.state.drift21 + water.state.drift22)/2;
+      var float_theta = atan2(water.state.drift22-water.state.drift21,530);
+      this.setTranslate(w, float_height);
+      this.setRotate(float_theta, [250,100]);
+    }
+    cat_face.setTranslate(730,110);
+    cat_eye1.updateSelf = function(){
+      const mouseDiff = [mouseX - (this.accX+24), mouseY - (this.accY+3)];
+      const th = atan2(mouseDiff[1], mouseDiff[0]);
+      if(this.spriteIndex == 0){
+        cat_eye1.setRotate(th,[4,4]);
       }
       else{
-        this.sp_index = 0;
-        cat_face.sp_index = 1;
+        cat_eye1.setRotate(0);
       }
+      cat_eye1.setTranslate(24,3)
     }
-  
-    var water = new Node("water")
-    water.draw_self = function(){
-      fill('rgba(10,10,255,0.3)');
-      noStroke();
-      beginShape();
-      //rect(0,0,windowWidth, windowHeight/3);
-      for(let i = 0; i < windowWidth; i+=10){
-        vertex(i, windowHeight/3 + sin(i/10+this.acc_t/1000)*windowHeight/7);
+
+    cat_eye2.updateSelf = function(){
+      const mouseDiff = [mouseX - (this.accX+82), mouseY - (this.accY+3)];
+      const th = atan2(mouseDiff[1], mouseDiff[0]);
+      if(this.spriteIndex == 0){
+        cat_eye2.setRotate(th,[4,4]);
       }
-      endShape(CLOSE);
+      else{
+        cat_eye2.setRotate(0);
+      }
+      cat_eye2.setTranslate(82,3);
     }
-    water.set_translate(0, windowHeight*2/3);
-  
-  
-    scene1.add_child(bg);
-    scene1.add_child(cat);
-    scene1.add_child(cat_tail);
-    scene1.add_child(big_title);
-    scene1.add_child(go_btn);
-    scene1.add_child(water);
     
+    cat_mouse.setTranslate(40,66);
+    cat_antenna_left.setTranslate(80,-180)
+    cat_antenna_right.setTranslate(40,-190)
+
+    cat.updateSelf = function(){
+        this.setScale(1.2);
+        this.setTranslate(-473*this.accScale,windowHeight*0.3*this.accScale);
+    }
+    
+    water.state.drift11 = 0;
+    water.state.drift12 = 0;
+    water.state.drift21 = 0;
+    water.state.drift22 = 0;
+    water.drawSelf = function(){
+      fill('rgba(10,10,255,0.5)');
+      noStroke();
+      //rect(0,0,windowWidth, windowHeight*0.4);
+      beginShape();
+      for(let i = 0; i < windowWidth; i+=10){
+        let water_level = 0
+        water_level += cos(this.accTime/700+i/65)
+        water_level += cos(-this.accTime/1000+i/150)*10
+        water_level += sin(this.accTime/2000+i/400)*30
+        vertex(i, water_level+windowHeight*0.7);
+        // store water level value for cat body drifting
+        if(i==0){
+          this.state.drift11 = water_level;
+        }
+        else if(i==530){
+          this.state.drift12 = water_level;
+        }
+        else if(i==windowWidth-530){
+          this.state.drift21 = water_level;
+        }
+        else if(i==windowWidth){
+          this.state.drift22 = water_level;
+        }
+      }
+      vertex(windowWidth, windowHeight);
+      vertex(0, windowHeight);
+      endShape(CLOSE);
+      
+    }
+    //water.setTranslate(0, windowHeight*2/3);
   
+    const tk = mouseTracker(sm);
+    scene1.addChild(bg);
+    scene1.addChild(cat);
+    scene1.addChild(water);
+    scene1.addChild(title);
+    scene1.addChild(btn_go);
+    scene1.addChild(tk);
+  
+
     loader.load().then(function(loader){
       PubSub.publish(scene_name, "activate");
       PubSub.publish(scene_name, "show");

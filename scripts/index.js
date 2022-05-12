@@ -5,6 +5,7 @@ function preload(){
 }
 
 function setup() {
+  textFont(huninn_font);
   cv = createCanvas(windowWidth, windowHeight);
   /*
   function publishMouseMove(){
@@ -14,7 +15,7 @@ function setup() {
   */
   sm = new getSceneManager();
   //sm.add_scene(make_scene("scene1"));
-  sm.addScene(test_scene(sm));
+  sm.addScene(make_scene_1(sm));
 }
 
 function draw(){
