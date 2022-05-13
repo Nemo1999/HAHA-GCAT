@@ -1,3 +1,4 @@
+var test
 function make_scene_1(sm, scene_name="scene1"){      
     loader = new SpriteLoader("TexturePacker/Scene1.json");    
     var scene1 = new Scene(scene_name);
@@ -19,9 +20,15 @@ function make_scene_1(sm, scene_name="scene1"){
     
     
     title.updateSelf = function(){
-      title.setCenter(windowWidth/2-100, windowHeight*0.35);
-      title.setScale(1.2)
+      console.log(this.accScale,this.size ,this.translation)
+      if(btn_go.mouseHovered){
+        title.setScale(1.2);
+      }else{
+        title.setScale(1)
+      }
+      title.setCenter((windowWidth)/2, windowHeight*0.35);
     }
+    test = title
     
     btn_go.updateSelf = function(){
       btn_go.setCenter(windowWidth/2, windowHeight*0.7);
@@ -40,6 +47,12 @@ function make_scene_1(sm, scene_name="scene1"){
       cat_antenna_left.setRotate(0);
       cat_antenna_right.setRotate(0);
     }
+    btn_go.onMouseClick = function(){
+      console.log("go to scene 2")
+      this.sm.addScene(make_scene_2(this.sm, loader));
+      scene1.removeSelf();
+
+    }
 
     cat.addChild(cat_body);
     cat.addChild(cat_tail);
@@ -51,18 +64,18 @@ function make_scene_1(sm, scene_name="scene1"){
     cat_face.addChild(cat_antenna_right);
     
     cat_body.updateSelf = function(){
-      var float_height = (water.state.drift11 + water.state.drift12)/2;
+      var float_height = (water.state.drift11 + water.state.drift12)/2 / this.accScale;
       var float_theta = atan2(water.state.drift12-water.state.drift11,530);
-      this.setTranslate(0,float_height);
-      this.setRotate(float_theta,[250,100]);
+      this.setTranslate(0, float_height/2);
+      this.setRotate(float_theta/2,[750,100]);
     }
 
     cat_tail.updateSelf = function(){
       var w = windowWidth / this.accScale
-      var float_height = (water.state.drift21 + water.state.drift22)/2;
+      var float_height = (water.state.drift21 + water.state.drift22)/2 / this.accScale;
       var float_theta = atan2(water.state.drift22-water.state.drift21,530);
-      this.setTranslate(w, float_height);
-      this.setRotate(float_theta, [250,100]);
+      this.setTranslate(w, float_height/2);
+      this.setRotate(float_theta/2, [250,100]);
     }
     cat_face.setTranslate(730,110);
     cat_eye1.updateSelf = function(){
@@ -95,7 +108,7 @@ function make_scene_1(sm, scene_name="scene1"){
 
     cat.updateSelf = function(){
         this.setScale(1.2);
-        this.setTranslate(-473*this.accScale,windowHeight*0.3*this.accScale);
+        this.setTranslate(-473*this.accScale,windowHeight*0.32*this.accScale);
     }
     
     water.state.drift11 = 0;
@@ -110,8 +123,12 @@ function make_scene_1(sm, scene_name="scene1"){
       for(let i = 0; i < windowWidth; i+=10){
         let water_level = 0
         water_level += cos(this.accTime/700+i/65)
-        water_level += cos(-this.accTime/1000+i/150)*10
+        water_level += cos(-this.accTime/300+i/150)*10
         water_level += sin(this.accTime/2000+i/400)*30
+        water_level += sin((i-mouseX+ this.accTime/200)/200)*50 * exp(-(abs(mouseX - i))/windowWidth*3)
+      
+
+        
         vertex(i, water_level+windowHeight*0.7);
         // store water level value for cat body drifting
         if(i==0){
@@ -120,10 +137,10 @@ function make_scene_1(sm, scene_name="scene1"){
         else if(i==530){
           this.state.drift12 = water_level;
         }
-        else if(i==windowWidth-530){
+        else if(i== (windowWidth- (windowWidth % 10)-530)){
           this.state.drift21 = water_level;
         }
-        else if(i==windowWidth){
+        else if(i==windowWidth - (windowWidth % 10)){
           this.state.drift22 = water_level;
         }
       }
@@ -149,4 +166,18 @@ function make_scene_1(sm, scene_name="scene1"){
     })
     console.log(scene1)
     return scene1;
-  } 
+} 
+
+function make_scene_2(sm, loader){
+  scene2 = new Scene("scene2");
+  bg = new Node("bg",false);
+  scene2.addChild(bg)
+  
+  bg.drawSelf = function(){
+    background(0,0,0);
+  }
+
+  scene2.activate()
+  scene2.show()
+  return scene2;
+}
