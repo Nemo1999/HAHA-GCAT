@@ -17,21 +17,30 @@ function make_scene_1(sm, scene_name="scene1"){
     var title = new SpriteNode(loader.get_handle("title.png"));
     var btn_go = new SpriteNode(loader.get_handle(["btn-go.png","btn-go-hovered.png"]),false, true);
     var water = new Node("water")
+    //helper components
+    const tk = mouseTracker(sm);
+    // scene1
+    scene1.addChild(bg);
+    scene1.addChild(cat);
+    scene1.addChild(water);
+    scene1.addChild(title);
+    scene1.addChild(btn_go);
+    scene1.addChild(tk);
+
     
     
-    title.updateSelf = function(){
-      console.log(this.accScale,this.size ,this.translation)
-      if(btn_go.mouseHovered){
-        title.setScale(1.2);
-      }else{
-        title.setScale(1)
-      }
-      title.setCenter((windowWidth)/2, windowHeight*0.35);
-    }
+    title.setScale(1.3)
+    title.setCenter((windowWidth)/2, windowHeight*0.35);
+
     test = title
     
+    btn_go.setCenter(windowWidth/2, windowHeight*0.7);
     btn_go.updateSelf = function(){
-      btn_go.setCenter(windowWidth/2, windowHeight*0.7);
+      if(btn_go.mouseHovered && this.accScale < 1.3){
+        this.setScale(this.accScale+0.05);
+      }else if(!btn_go.mouseHovered && this.accScale > 1.0){
+        this.setScale(this.accScale-0.05);
+      }
     }
     btn_go.onMouseEnter = function(){
       btn_go.nextSprite();
@@ -108,7 +117,7 @@ function make_scene_1(sm, scene_name="scene1"){
 
     cat.updateSelf = function(){
         this.setScale(1.2);
-        this.setTranslate(-473*this.accScale,windowHeight*0.32*this.accScale);
+        this.setTranslate(-473*this.accScale,windowHeight*0.35*this.accScale);
     }
     
     water.state.drift11 = 0;
@@ -151,13 +160,7 @@ function make_scene_1(sm, scene_name="scene1"){
     }
     //water.setTranslate(0, windowHeight*2/3);
   
-    const tk = mouseTracker(sm);
-    scene1.addChild(bg);
-    scene1.addChild(cat);
-    scene1.addChild(water);
-    scene1.addChild(title);
-    scene1.addChild(btn_go);
-    scene1.addChild(tk);
+    
   
 
     loader.load().then(function(loader){
