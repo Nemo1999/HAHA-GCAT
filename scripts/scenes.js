@@ -19,6 +19,11 @@ function make_scene_1(sm, scene_name="scene1"){
     var water = new Node("water")
     //helper components
     const tk = mouseTracker(sm);
+    tk.onMouseScroll = function(delta){
+      const agreement_div = document.getElementById("user-agreement")
+      agreement_div.scrollTop += delta;
+      console.log(agreement_div.scrollTop, agreement_div.scrollHeight)
+    }
     // scene1
     scene1.addChild(bg);
     scene1.addChild(cat);
@@ -173,8 +178,20 @@ function make_scene_1(sm, scene_name="scene1"){
 
 function make_scene_2(sm, loader){
   scene2 = new Scene("scene2");
-  bg = new Node("bg",false);
+  const bg = new Node("bg",false);
+  const textNode = new Node("text",false);
+  const agreement_text = document.getElementById("user-agreement").textContent;
+   console.log(agreement_text);
+  textNode.drawSelf = function(){
+    fill('rgba(255,255,255,0.5)');
+    console.log("draw text")
+    noStroke();
+    textWrap(CHAR)
+    textSize(10);
+    text(agreement_text,0,0,windowWidth/2,windowHeight*2)
+  }
   scene2.addChild(bg)
+  scene2.addChild(textNode)
   
   bg.drawSelf = function(){
     background(0,0,0);
