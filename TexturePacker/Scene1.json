@@ -1,6 +1,6 @@
 {"frames": {
 
-"agreebox.png":
+"agreebox-checked.png":
 {
 	"frame": {"x":239,"y":0,"w":82,"h":32},
 	"rotated": false,
@@ -8,9 +8,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":32},
 	"sourceSize": {"w":82,"h":32}
 },
+"agreebox.png":
+{
+	"frame": {"x":321,"y":0,"w":82,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":32},
+	"sourceSize": {"w":82,"h":32}
+},
 "btn-go-hovered.png":
 {
-	"frame": {"x":562,"y":0,"w":114,"h":66},
+	"frame": {"x":644,"y":0,"w":114,"h":66},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":66},
@@ -18,7 +26,7 @@
 },
 "btn-go.png":
 {
-	"frame": {"x":676,"y":0,"w":114,"h":66},
+	"frame": {"x":758,"y":0,"w":114,"h":66},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":66},
@@ -42,7 +50,7 @@
 },
 "cat-antenna-left.png":
 {
-	"frame": {"x":357,"y":0,"w":49,"h":82},
+	"frame": {"x":439,"y":0,"w":49,"h":82},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":82},
@@ -50,7 +58,7 @@
 },
 "cat-antenna-right.png":
 {
-	"frame": {"x":321,"y":0,"w":36,"h":88},
+	"frame": {"x":403,"y":0,"w":36,"h":88},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":88},
@@ -106,7 +114,7 @@
 },
 "cat_face1.png":
 {
-	"frame": {"x":479,"y":0,"w":83,"h":63},
+	"frame": {"x":561,"y":0,"w":83,"h":63},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":63},
@@ -114,7 +122,7 @@
 },
 "cat_face2.png":
 {
-	"frame": {"x":406,"y":0,"w":73,"h":69},
+	"frame": {"x":488,"y":0,"w":73,"h":69},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":73,"h":69},
@@ -202,6 +210,6 @@
 	"format": "RGBA8888",
 	"size": {"w":911,"h":1754},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:98586703e478e04777736b5a9fbee5a3:fefa6e80f371765d80acce706ba6a3ee:5e5336dc85d3e10e04eae73a3cf4b0a7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:8597fcb5989a4541f066d68689d292a5:7a39f5e6a703431da9b3e52ae0fbf99e:5e5336dc85d3e10e04eae73a3cf4b0a7$"
 }
 }

@@ -19,6 +19,9 @@ function setup() {
 }
 
 function draw(){
+  
+  //console.log(Array.from(sm.interactingNodes).map(n => n.name))
+  
   sm.update(deltaTime);
   sm.render()
 }

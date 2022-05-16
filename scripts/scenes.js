@@ -18,12 +18,10 @@ function make_scene_1(sm, scene_name="scene1"){
     var btn_go = new SpriteNode(loader.get_handle(["btn-go.png","btn-go-hovered.png"]),false, true);
     var water = new Node("water")
     //helper components
+    
     const tk = mouseTracker(sm);
-    tk.onMouseScroll = function(delta){
-      const agreement_div = document.getElementById("user-agreement")
-      agreement_div.scrollTop += delta;
-      console.log(agreement_div.scrollTop, agreement_div.scrollHeight)
-    }
+   
+    
     // scene1
     scene1.addChild(bg);
     scene1.addChild(cat);
@@ -177,27 +175,111 @@ function make_scene_1(sm, scene_name="scene1"){
 } 
 
 function make_scene_2(sm, loader){
+  
+  
   scene2 = new Scene("scene2");
   const bg = new Node("bg",false);
-  const textNode = new Node("text",false);
-  const agreement_text = document.getElementById("user-agreement").textContent;
-   console.log(agreement_text);
-  textNode.drawSelf = function(){
-    fill('rgba(255,255,255,0.5)');
-    console.log("draw text")
-    noStroke();
-    textWrap(CHAR)
-    textSize(10);
-    text(agreement_text,0,0,windowWidth/2,windowHeight*2)
-  }
-  scene2.addChild(bg)
-  scene2.addChild(textNode)
+  const leaf_background = new SpriteNode(loader.get_handle("leaf-background.png"),false);
+  //const tk = mouseTracker(sm);
+  const btn_start = new SpriteNode(loader.get_handle(["btn-start.png", "btn-start-hovered.png"]),false, true);
+  const agreebox = new SpriteNode(loader.get_handle(["agreebox.png","agreebox-checked.png"]),false, true);
+  const text = new SizeNode("text box", windowWidth*0.5, windowHeight*0.55, false, true)
   
-  bg.drawSelf = function(){
-    background(0,0,0);
+  
+  // define text node
+  text.state.element = document.getElementById("user-agreement");
+  // show the element
+  text.state.element.style.display = "block";
+  
+  text.updateSelf = function(){
+    this.fitDrawnSize(windowWidth*0.4, windowHeight*0.55);
+    this.setTranslate(windowWidth/2-this.drawnSize[0]/2, windowHeight/2-this.drawnSize[1]/2);
+  }
+  /*
+  text.drawSelf = function(){
+    // see hover region
+    fill(0,0,0,100);
+    rect(0,0,this.size[0], this.size[1]);  
+  }
+  */
+  text.onMouseScroll = function(delta){
+    let textdiv = this.state.element;
+    textdiv.scrollTop += delta;
+    const offset = 100
+    if(textdiv.scrollTop + offset>= textdiv.scrollHeight - textdiv.offsetHeight){
+      console.log("scroll to the end")
+      btn_start.show()
+      btn_start.activate()
+      agreebox.show()
+      agreebox.activate()
+    }
+    else{
+      console.log("not yet")
+      btn_start.hide()
+      btn_start.deactivate()
+      agreebox.hide()
+      agreebox.deactivate()
+    }
+  } 
+  
+  
+
+  scene2.addChild(bg);
+  bg.addChild(leaf_background);
+  scene2.addChild(text)
+  scene2.addChild(btn_start);
+  scene2.addChild(agreebox);
+  //scene2.addChild(tk);
+  
+
+  btn_start.setCenter(windowWidth/2, windowHeight*0.6);
+  btn_start.hide();
+  btn_start.deactivate();
+  agreebox.setCenter(windowWidth/2, windowHeight*0.5);
+  agreebox.hide();
+  agreebox.deactivate();
+
+  agreebox.onMouseClick = function(){
+    this.nextSprite()
   }
 
+  btn_start.onMouseEnter = function(){
+    this.nextSprite()
+  }
+  btn_start.onMouseExit = function(){
+    this.prevSprite()
+  }
+  btn_start.onMouseClick = function(){
+    if(agreebox.spriteIndex == 1){
+      this.sm.addScene(make_scene_3(this.sm));
+      text.state.element.style.display = "none";
+      scene2.removeSelf();
+    }
+  }
+
+  leaf_background.updateSelf = function(){
+    leaf_background.setCenter(windowWidth/2, windowHeight/2);
+    leaf_background.fitDrawnSize(windowWidth*0.6 ,windowHeight);
+  }
+
+  bg.drawSelf = function(){
+    background(color("#FEFFD2"))
+  }
+  
   scene2.activate()
   scene2.show()
   return scene2;
+}
+
+function make_scene_3(sm){
+  scene3 = new Scene("scene3");
+  
+  const bg = new Node("bg",false);
+  bg.drawSelf = function(){
+    background(color("#FEFFD2"))
+  }
+  scene3.addChild(bg);
+  scene3.activate()
+  scene3.show()
+  return scene3
 }
