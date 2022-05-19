@@ -185,6 +185,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../assets/Scene1/agreebox-checked.png</key>
             <key type="filename">../assets/Scene1/agreebox.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -544,6 +545,7 @@
             <filename>../assets/Scene1/scroll-bar-handle.png</filename>
             <filename>../assets/Scene1/scroll-bar.png</filename>
             <filename>../assets/Scene1/title.png</filename>
+            <filename>../assets/Scene1/agreebox-checked.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
