@@ -128,7 +128,9 @@ function make_scene_1(sm, scene_name="scene1"){
     water.state.drift21 = 0;
     water.state.drift22 = 0;
     water.drawSelf = function(){
-      fill('rgba(10,10,255,0.5)');
+      const water_col = color('#37CADE')
+      water_col.setAlpha(0.48*255)
+      fill(water_col);
       noStroke();
       //rect(0,0,windowWidth, windowHeight*0.4);
       beginShape();
@@ -155,7 +157,14 @@ function make_scene_1(sm, scene_name="scene1"){
         else if(i==windowWidth - (windowWidth % 10)){
           this.state.drift22 = water_level;
         }
+
+
+        // add last vertex and the right edge of the screen
+        if(i+10 >= windowWidth){
+          vertex(windowWidth, water_level)
+        }
       }
+
       vertex(windowWidth, windowHeight);
       vertex(0, windowHeight);
       endShape(CLOSE);
