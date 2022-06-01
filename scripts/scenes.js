@@ -11,7 +11,7 @@ function make_scene_1(sm, scene_name="scene1"){
     var cat_face = new Node("cat_face");
     var cat_eye1 = new SpriteNode(loader.get_handle(["cat-eye.png", "cat-eye-hovered.png"]));
     var cat_eye2 = new SpriteNode(loader.get_handle(["cat-eye.png", "cat-eye-hovered.png"]));
-    var cat_mouse = new SpriteNode(loader.get_handle(["cat-mouse.png", "cat-mouse-hovered.png"]));
+    var cat_mouth = new SpriteNode(loader.get_handle(["cat-mouth.png", "cat-mouth-hovered.png"]));
     var cat_antenna_left = new SpriteNode(loader.get_handle("cat-antenna-left.png"));
     var cat_antenna_right = new SpriteNode(loader.get_handle("cat-antenna-right.png"));
     var title = new SpriteNode(loader.get_handle("title.png"));
@@ -32,25 +32,27 @@ function make_scene_1(sm, scene_name="scene1"){
 
     
     
-    title.setScale(1.3)
+    title.setScale(1)
     title.setCenter((windowWidth)/2, windowHeight*0.35);
 
     test = title
     
     btn_go.setCenter(windowWidth/2, windowHeight*0.7);
     btn_go.updateSelf = function(){
+      /*
       if(btn_go.mouseHovered && this.accScale < 1.3){
         this.setScale(this.accScale+0.05);
       }else if(!btn_go.mouseHovered && this.accScale > 1.0){
         this.setScale(this.accScale-0.05);
       }
+      */
     }
     btn_go.onMouseEnter = function(){
       btn_go.nextSprite();
       cat_eye1.nextSprite();
       cat_eye2.nextSprite();
-      cat_antenna_left.setRotate(0.2,[0,100]);
-      cat_antenna_right.setRotate(0.1,[0,100]);
+      cat_antenna_right.setRotate(0.2,[0,100]);
+      cat_antenna_left.setRotate(0.1,[0,100]);
     }
     btn_go.onMouseExit = function(){
       btn_go.prevSprite();
@@ -71,7 +73,7 @@ function make_scene_1(sm, scene_name="scene1"){
     cat_body.addChild(cat_face);
     cat_face.addChild(cat_eye1);
     cat_face.addChild(cat_eye2);
-    cat_face.addChild(cat_mouse);
+    cat_face.addChild(cat_mouth);
     cat_face.addChild(cat_antenna_left);
     cat_face.addChild(cat_antenna_right);
     
@@ -89,7 +91,7 @@ function make_scene_1(sm, scene_name="scene1"){
       this.setTranslate(w, float_height/2);
       this.setRotate(float_theta/2, [250,100]);
     }
-    cat_face.setTranslate(730,110);
+    cat_face.setTranslate(1000,110);
     cat_eye1.updateSelf = function(){
       const mouseDiff = [mouseX - (this.accX+24), mouseY - (this.accY+3)];
       const th = atan2(mouseDiff[1], mouseDiff[0]);
@@ -99,7 +101,7 @@ function make_scene_1(sm, scene_name="scene1"){
       else{
         cat_eye1.setRotate(0);
       }
-      cat_eye1.setTranslate(24,3)
+      cat_eye1.setTranslate(50,3)
     }
 
     cat_eye2.updateSelf = function(){
@@ -111,16 +113,16 @@ function make_scene_1(sm, scene_name="scene1"){
       else{
         cat_eye2.setRotate(0);
       }
-      cat_eye2.setTranslate(82,3);
+      cat_eye2.setTranslate(120,3);
     }
     
-    cat_mouse.setTranslate(40,66);
-    cat_antenna_left.setTranslate(80,-180)
-    cat_antenna_right.setTranslate(40,-190)
+    cat_mouth.setTranslate(60,96);
+    cat_antenna_right.setTranslate(120,-200)
+    cat_antenna_left.setTranslate(70,-220)
 
     cat.updateSelf = function(){
-        this.setScale(1.2);
-        this.setTranslate(-473*this.accScale,windowHeight*0.35*this.accScale);
+        this.setScale(1);
+        this.setTranslate(-670*this.accScale,windowHeight*0.35*this.accScale);
     }
     
     water.state.drift11 = 0;
