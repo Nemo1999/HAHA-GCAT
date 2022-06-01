@@ -308,10 +308,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../assets/Scene1/cat-mouse-hovered.png</key>
+            <key type="filename">../assets/Scene1/cat-mouth-hovered.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
+                <point_f>0,0</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -323,10 +323,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../assets/Scene1/cat-mouse.png</key>
+            <key type="filename">../assets/Scene1/cat-mouth.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
+                <point_f>0,0</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -473,8 +473,6 @@
             <filename>../assets/Scene1/cat-body.png</filename>
             <filename>../assets/Scene1/cat-eye-hovered.png</filename>
             <filename>../assets/Scene1/cat-eye.png</filename>
-            <filename>../assets/Scene1/cat-mouse-hovered.png</filename>
-            <filename>../assets/Scene1/cat-mouse.png</filename>
             <filename>../assets/Scene1/leaf-background.png</filename>
             <filename>../assets/Scene1/leaf-gray.png</filename>
             <filename>../assets/Scene1/leaf-green.png</filename>
@@ -484,6 +482,8 @@
             <filename>../assets/Scene1/scroll-bar-handle.png</filename>
             <filename>../assets/Scene1/scroll-bar.png</filename>
             <filename>../assets/Scene1/title.png</filename>
+            <filename>../assets/Scene1/cat-mouth-hovered.png</filename>
+            <filename>../assets/Scene1/cat-mouth.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

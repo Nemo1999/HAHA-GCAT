@@ -32,11 +32,10 @@ function make_scene_1(sm, scene_name="scene1"){
 
     
     
-    title.setScale(1)
-    title.setCenter((windowWidth)/2, windowHeight*0.35);
+    title.updateSelf = function(){
+      title.setCenter((windowWidth)/2, windowHeight*0.35);
+    }
 
-    test = title
-    
     btn_go.setCenter(windowWidth/2, windowHeight*0.7);
     btn_go.updateSelf = function(){
       /*
@@ -121,7 +120,7 @@ function make_scene_1(sm, scene_name="scene1"){
     cat_antenna_left.setTranslate(70,-220)
 
     cat.updateSelf = function(){
-        this.setScale(1);
+        this.setScale(windowWidth*0.3 / cat_body.size[0]);
         this.setTranslate(-670*this.accScale,windowHeight*0.35*this.accScale);
     }
     
