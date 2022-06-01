@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>5</int>
         <key>texturePackerVersion</key>
-        <string>6.0.1</string>
+        <string>6.0.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -242,9 +242,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>12,21,25,41</rect>
+                <rect>12,31,25,61</rect>
                 <key>scale9Paddings</key>
-                <rect>12,21,25,41</rect>
+                <rect>12,31,25,61</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -257,9 +257,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>9,22,18,44</rect>
+                <rect>17,29,35,57</rect>
                 <key>scale9Paddings</key>
-                <rect>9,22,18,44</rect>
+                <rect>17,29,35,57</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -272,9 +272,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>108,77,216,153</rect>
+                <rect>316,106,632,213</rect>
                 <key>scale9Paddings</key>
-                <rect>108,77,216,153</rect>
+                <rect>316,106,632,213</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -287,9 +287,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>6,3,13,5</rect>
+                <rect>8,3,15,5</rect>
                 <key>scale9Paddings</key>
-                <rect>6,3,13,5</rect>
+                <rect>8,3,15,5</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -302,24 +302,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>3,3,7,7</rect>
+                <rect>5,5,9,9</rect>
                 <key>scale9Paddings</key>
-                <rect>3,3,7,7</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../assets/Scene1/cat-eyes-hovered.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>21,4,41,7</rect>
-                <key>scale9Paddings</key>
-                <rect>21,4,41,7</rect>
+                <rect>5,5,9,9</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -332,9 +317,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>13,5,27,9</rect>
+                <rect>18,6,37,13</rect>
                 <key>scale9Paddings</key>
-                <rect>13,5,27,9</rect>
+                <rect>18,6,37,13</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -347,39 +332,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>13,4,27,8</rect>
+                <rect>18,6,37,11</rect>
                 <key>scale9Paddings</key>
-                <rect>13,4,27,8</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../assets/Scene1/cat_face1.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>21,16,41,31</rect>
-                <key>scale9Paddings</key>
-                <rect>21,16,41,31</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../assets/Scene1/cat_face2.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>18,17,37,35</rect>
-                <key>scale9Paddings</key>
-                <rect>18,17,37,35</rect>
+                <rect>18,6,37,11</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -392,9 +347,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>191,170,383,340</rect>
+                <rect>266,236,531,473</rect>
                 <key>scale9Paddings</key>
-                <rect>191,170,383,340</rect>
+                <rect>266,236,531,473</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -407,9 +362,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>26,38,51,77</rect>
+                <rect>39,64,77,129</rect>
                 <key>scale9Paddings</key>
-                <rect>26,38,51,77</rect>
+                <rect>39,64,77,129</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -422,9 +377,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>51,42,101,84</rect>
+                <rect>65,83,129,165</rect>
                 <key>scale9Paddings</key>
-                <rect>51,42,101,84</rect>
+                <rect>65,83,129,165</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -437,9 +392,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>57,38,113,75</rect>
+                <rect>79,55,157,109</rect>
                 <key>scale9Paddings</key>
-                <rect>57,38,113,75</rect>
+                <rect>79,55,157,109</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -452,9 +407,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>48,59,95,117</rect>
+                <rect>66,81,133,162</rect>
                 <key>scale9Paddings</key>
-                <rect>48,59,95,117</rect>
+                <rect>66,81,133,162</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -474,20 +429,6 @@
                 <false/>
             </struct>
             <key type="filename">../assets/Scene1/scroll-bar-handle.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>3,11,6,23</rect>
-                <key>scale9Paddings</key>
-                <rect>3,11,6,23</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">../assets/Scene1/scroll-bar.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -497,9 +438,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>3,91,6,181</rect>
+                <rect>3,15,7,29</rect>
                 <key>scale9Paddings</key>
-                <rect>3,91,6,181</rect>
+                <rect>3,15,7,29</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -512,15 +453,16 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>99,80,197,159</rect>
+                <rect>137,111,275,221</rect>
                 <key>scale9Paddings</key>
-                <rect>99,80,197,159</rect>
+                <rect>137,111,275,221</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
+            <filename>../assets/Scene1/agreebox-checked.png</filename>
             <filename>../assets/Scene1/agreebox.png</filename>
             <filename>../assets/Scene1/btn-go-hovered.png</filename>
             <filename>../assets/Scene1/btn-go.png</filename>
@@ -531,11 +473,8 @@
             <filename>../assets/Scene1/cat-body.png</filename>
             <filename>../assets/Scene1/cat-eye-hovered.png</filename>
             <filename>../assets/Scene1/cat-eye.png</filename>
-            <filename>../assets/Scene1/cat-eyes-hovered.png</filename>
             <filename>../assets/Scene1/cat-mouse-hovered.png</filename>
             <filename>../assets/Scene1/cat-mouse.png</filename>
-            <filename>../assets/Scene1/cat_face1.png</filename>
-            <filename>../assets/Scene1/cat_face2.png</filename>
             <filename>../assets/Scene1/leaf-background.png</filename>
             <filename>../assets/Scene1/leaf-gray.png</filename>
             <filename>../assets/Scene1/leaf-green.png</filename>
@@ -545,7 +484,6 @@
             <filename>../assets/Scene1/scroll-bar-handle.png</filename>
             <filename>../assets/Scene1/scroll-bar.png</filename>
             <filename>../assets/Scene1/title.png</filename>
-            <filename>../assets/Scene1/agreebox-checked.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

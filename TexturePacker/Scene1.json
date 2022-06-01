@@ -88,7 +88,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
 	"sourceSize": {"w":19,"h":19}
 },
-"cat-mouse-hovered.png":
+"cat-mouth-hovered.png":
 {
 	"frame": {"x":123,"y":0,"w":73,"h":25},
 	"rotated": false,
@@ -96,7 +96,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":73,"h":25},
 	"sourceSize": {"w":73,"h":25}
 },
-"cat-mouse.png":
+"cat-mouth.png":
 {
 	"frame": {"x":50,"y":0,"w":73,"h":23},
 	"rotated": false,
@@ -183,6 +183,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1787,"h":1627},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9961802564c6e123135ce618b618598f:09ac19b9ef8359d7e96d7f9be905de7b:5e5336dc85d3e10e04eae73a3cf4b0a7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0dc7376bbf297070b82e52b00eea8e31:09ac19b9ef8359d7e96d7f9be905de7b:5e5336dc85d3e10e04eae73a3cf4b0a7$"
 }
 }
