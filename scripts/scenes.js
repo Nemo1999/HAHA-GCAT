@@ -35,17 +35,11 @@ function make_scene_1(sm, scene_name="scene1"){
     title.updateSelf = function(){
       title.setCenter((windowWidth)/2, windowHeight*0.35);
     }
-
-    btn_go.setCenter(windowWidth/2, windowHeight*0.7);
     btn_go.updateSelf = function(){
-      /*
-      if(btn_go.mouseHovered && this.accScale < 1.3){
-        this.setScale(this.accScale+0.05);
-      }else if(!btn_go.mouseHovered && this.accScale > 1.0){
-        this.setScale(this.accScale-0.05);
-      }
-      */
+      this.setCenter(windowWidth/2, windowHeight*0.7);
     }
+    
+    
     btn_go.onMouseEnter = function(){
       btn_go.nextSprite();
       cat_eye1.nextSprite();
@@ -120,8 +114,10 @@ function make_scene_1(sm, scene_name="scene1"){
     cat_antenna_left.setTranslate(70,-220)
 
     cat.updateSelf = function(){
-        this.setScale(windowWidth*0.3 / cat_body.size[0]);
-        this.setTranslate(-670*this.accScale,windowHeight*0.35*this.accScale);
+        const ratio_catBody = 0.7
+        const ratio_catHeightAboveWater = 0.7
+        this.setScale(windowWidth*ratio_catBody / cat_body.size[0]);
+        this.setTranslate(-670*this.accScale, windowHeight*0.7-cat_body.size[1]*this.accScale*ratio_catHeightAboveWater);
     }
     
     water.state.drift11 = 0;
@@ -131,6 +127,7 @@ function make_scene_1(sm, scene_name="scene1"){
     water.drawSelf = function(){
       const water_col = color('#37CADE')
       water_col.setAlpha(0.48*255)
+      waterLevelAvg = windowHeight * 0.7
       fill(water_col);
       noStroke();
       //rect(0,0,windowWidth, windowHeight*0.4);
@@ -144,7 +141,7 @@ function make_scene_1(sm, scene_name="scene1"){
       
 
         
-        vertex(i, water_level+windowHeight*0.7);
+        vertex(i, water_level + waterLevelAvg);
         // store water level value for cat body drifting
         if(i==0){
           this.state.drift11 = water_level;
@@ -162,10 +159,10 @@ function make_scene_1(sm, scene_name="scene1"){
 
         // add last vertex and the right edge of the screen
         if(i+10 >= windowWidth){
-          vertex(windowWidth, water_level)
+         
         }
       }
-
+      vertex(windowWidth, waterLevelAvg)
       vertex(windowWidth, windowHeight);
       vertex(0, windowHeight);
       endShape(CLOSE);
