@@ -1,6 +1,6 @@
-var test
-function make_scene_1(sm, scene_name="scene1"){      
-    loader = new SpriteLoader("TexturePacker/Scene1.json");    
+
+function make_scene_1(loader, scene_name="scene1"){      
+    
     var scene1 = new Scene(scene_name);
     var bg = new Node("background");
     bg.drawSelf = ()=>{background(color("#FEFFD2"));}
@@ -18,11 +18,24 @@ function make_scene_1(sm, scene_name="scene1"){
     var btn_go = new SpriteNode(loader.get_handle(["btn-go.png","btn-go-hovered.png"]),false, true);
     var water = new Node("water")
     //helper components
-    
-    const tk = mouseTracker(sm);
-   
+    const tk = mouseTracker();
+  
+
+    // controll constants
+    const waterLevelAvg = windowHeight * 0.7
+    const ratio_catBody_windowWidth = 0.7
+    const ratio_catHeightAboveWater_catHeight = 0.7
+    const ratio_catTail_catBody = 670/cat_body.size[0]
     
     // scene1
+    scene1.reloadSelf = function(){
+      this.activate()
+      this.show()
+    }
+    scene1.unloadSelf = function(){
+      this.deactivate()
+      this.hide()
+    }
     scene1.addChild(bg);
     scene1.addChild(cat);
     scene1.addChild(water);
@@ -56,9 +69,8 @@ function make_scene_1(sm, scene_name="scene1"){
     }
     btn_go.onMouseClick = function(){
       console.log("go to scene 2")
-      this.sm.addScene(make_scene_2(this.sm, loader));
-      scene1.removeSelf();
-
+      PubSub.publish("scene2","reload")
+      scene1.unload()
     }
 
     cat.addChild(cat_body);
@@ -114,10 +126,10 @@ function make_scene_1(sm, scene_name="scene1"){
     cat_antenna_left.setTranslate(70,-220)
 
     cat.updateSelf = function(){
-        const ratio_catBody = 0.7
-        const ratio_catHeightAboveWater = 0.7
-        this.setScale(windowWidth*ratio_catBody / cat_body.size[0]);
-        this.setTranslate(-670*this.accScale, windowHeight*0.7-cat_body.size[1]*this.accScale*ratio_catHeightAboveWater);
+        this.setScale(windowWidth*ratio_catBody_windowWidth / cat_body.size[0]);
+        this.setTranslate(-cat_body.size[0]*this.accScale*ratio_catTail_catBody,
+           windowHeight*0.7-cat_body.size[1]*this.accScale*ratio_catHeightAboveWater_catHeight);
+        //console.log(cat)
     }
     
     water.state.drift11 = 0;
@@ -127,39 +139,34 @@ function make_scene_1(sm, scene_name="scene1"){
     water.drawSelf = function(){
       const water_col = color('#37CADE')
       water_col.setAlpha(0.48*255)
-      waterLevelAvg = windowHeight * 0.7
+      const catLength = windowWidth * ratio_catBody_windowWidth
+      const bodyStart = 0
+      const bodyEnd = catLength * (1-ratio_catTail_catBody)
+      const tailStart = windowWidth - catLength * ratio_catTail_catBody
+      const tailEnd = windowWidth - 10
+      const waterStep = 10
       fill(water_col);
       noStroke();
-      //rect(0,0,windowWidth, windowHeight*0.4);
       beginShape();
-      for(let i = 0; i < windowWidth; i+=10){
+      for(let i = 0; i < windowWidth; i+=waterStep){
         let water_level = 0
         water_level += cos(this.accTime/700+i/65)
         water_level += cos(-this.accTime/300+i/150)*10
         water_level += sin(this.accTime/2000+i/400)*30
         water_level += sin((i-mouseX+ this.accTime/200)/200)*50 * exp(-(abs(mouseX - i))/windowWidth*3)
-      
-
-        
         vertex(i, water_level + waterLevelAvg);
         // store water level value for cat body drifting
-        if(i==0){
+        if(i>=bodyStart && i <bodyStart+waterStep){
           this.state.drift11 = water_level;
         }
-        else if(i==530){
+        else if(i >= bodyEnd && i < bodyEnd + waterStep){
           this.state.drift12 = water_level;
         }
-        else if(i== (windowWidth- (windowWidth % 10)-530)){
+        else if(i >= tailStart && i < tailStart + waterStep){
           this.state.drift21 = water_level;
         }
-        else if(i==windowWidth - (windowWidth % 10)){
+        else if(i >= tailEnd && i < tailEnd + waterStep){
           this.state.drift22 = water_level;
-        }
-
-
-        // add last vertex and the right edge of the screen
-        if(i+10 >= windowWidth){
-         
         }
       }
       vertex(windowWidth, waterLevelAvg)
@@ -169,22 +176,11 @@ function make_scene_1(sm, scene_name="scene1"){
       
     }
     //water.setTranslate(0, windowHeight*2/3);
-  
-    
-  
-
-    loader.load().then(function(loader){
-      PubSub.publish(scene_name, "activate");
-      PubSub.publish(scene_name, "show");
-    })
-    console.log(scene1)
     return scene1;
 } 
 
-function make_scene_2(sm, loader){
-  
-  
-  scene2 = new Scene("scene2");
+function make_scene_2(loader, scene_name="scene2"){
+  scene2 = new Scene(scene_name);
   const bg = new Node("bg",false);
   const leaf_background = new SpriteNode(loader.get_handle("leaf-background.png"),false);
   //const tk = mouseTracker(sm);
@@ -195,12 +191,17 @@ function make_scene_2(sm, loader){
   
   // define text node
   text.state.element = document.getElementById("user-agreement");
-  // show the element
-  text.state.element.style.display = "block";
-  
+  text.reloadSelf = function(){
+    // show the text element
+    text.state.element.style.display = "block";
+  }
   text.updateSelf = function(){
     this.fitDrawnSize(windowWidth*0.4, windowHeight*0.55);
     this.setTranslate(windowWidth/2-this.drawnSize[0]/2, windowHeight/2-this.drawnSize[1]/2);
+  }
+  text.unloadSelf = function(){
+    console.log("unload text Node")
+    text.state.element.style.display = "none"
   }
   /*
   text.drawSelf = function(){
@@ -230,7 +231,15 @@ function make_scene_2(sm, loader){
   } 
   
   
-
+  scene2.reloadSelf = function(){
+    this.show()
+    this.activate()
+  }
+  scene2.unloadSelf = function(){
+    console.log("unload Scene2")
+    this.deactivate()
+    this.hide()
+  }
   scene2.addChild(bg);
   bg.addChild(leaf_background);
   scene2.addChild(text)
@@ -258,9 +267,9 @@ function make_scene_2(sm, loader){
   }
   btn_start.onMouseClick = function(){
     if(agreebox.spriteIndex == 1){
-      this.sm.addScene(make_scene_3(this.sm));
-      text.state.element.style.display = "none";
-      scene2.removeSelf();
+      PubSub.publish("scene3", "reload")
+      console.log("unloading scene2")
+      scene2.unload();
     }
   }
 
@@ -272,21 +281,19 @@ function make_scene_2(sm, loader){
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
   }
-  
-  scene2.activate()
-  scene2.show()
   return scene2;
 }
 
-function make_scene_3(sm){
+function make_scene_3(){
   scene3 = new Scene("scene3");
-  
+  scene3.reloadSelf = function(){
+    this.activate()
+    this.show()
+  }
   const bg = new Node("bg",false);
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
   }
   scene3.addChild(bg);
-  scene3.activate()
-  scene3.show()
   return scene3
 }
