@@ -31,10 +31,19 @@ function make_scene_1(loader, scene_name="scene1"){
     scene1.reloadSelf = function(){
       this.activate()
       this.show()
+      scene1.alpha = 0.0
     }
     scene1.unloadSelf = function(){
       this.deactivate()
       this.hide()
+    }
+    scene1.updateSelf = function(){
+      if(this.accTime < 3000){
+        this.alpha = this.accTime / 3000
+      }
+      else{
+        this.alpha = null
+      }
     }
     scene1.addChild(bg);
     scene1.addChild(cat);
@@ -138,7 +147,7 @@ function make_scene_1(loader, scene_name="scene1"){
     water.state.drift22 = 0;
     water.drawSelf = function(){
       const water_col = color('#37CADE')
-      water_col.setAlpha(0.48*255)
+      water_col.setAlpha(0.48*255*this.accAlpha)
       const catLength = windowWidth * ratio_catBody_windowWidth
       const bodyStart = 0
       const bodyEnd = catLength * (1-ratio_catTail_catBody)
