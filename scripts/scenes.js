@@ -189,15 +189,32 @@ function make_scene_1(loader, scene_name="scene1"){
 } 
 
 function make_scene_2(loader, scene_name="scene2"){
-  scene2 = new Scene(scene_name);
+  // Config Constants
+  const leafNum = 100
+
+
+  // Defining Nodes
+  const scene2 = new Scene(scene_name);
   const bg = new Node("bg",false);
   const leaf_background = new SpriteNode(loader.get_handle("leaf-background.png"),false);
   //const tk = mouseTracker(sm);
   const btn_start = new SpriteNode(loader.get_handle(["btn-start.png", "btn-start-hovered.png"]),false, true);
   const agreebox = new SpriteNode(loader.get_handle(["agreebox.png","agreebox-checked.png"]),false, true);
   const text = new SizeNode("text box", windowWidth*0.5, windowHeight*0.55, false, true)
-  
-  
+  const leaf_scatter = new Node("leaf-scatter", false)
+  const leaf_nodes = []
+  const leaf_names = ["leaf-gray.png", "leaf-green.png", "leaf-light-green.png", "leaf-texture-gray.png", "leaf-texture-light-green.png"]
+  for(i=0;i<leafNum;i++){
+    leaf_nodes.push(new SpriteNode(loader.get_handle(leaf_names[i%leaf_names.length])))
+    leaf_nodes[i].setTranslate(int(random(windowWidth)), int(random(windowHeight)))
+    leaf_nodes[i].setRotate(random(Math.PI*2))
+    leaf_scatter.addChild(leaf_nodes[i])
+  }
+  const scroll_handle = new SpriteNode(loader.get_handle("scroll-bar-handle.png"), false, true)
+  const scroll_bar = new SpriteNode(loader.get_handle("scroll-bar.png"),false, false)
+
+
+
   // define text node
   text.state.element = document.getElementById("user-agreement");
   text.reloadSelf = function(){
@@ -205,23 +222,60 @@ function make_scene_2(loader, scene_name="scene2"){
     text.state.element.style.display = "block";
   }
   text.updateSelf = function(){
-    this.fitDrawnSize(windowWidth*0.4, windowHeight*0.55);
+    text.state.ratio_offset_scroll = text.state.element.offsetHeight / text.state.element.scrollHeight 
+    this.fitDrawnSize(windowWidth*0.36, windowHeight*0.55);
     this.setTranslate(windowWidth/2-this.drawnSize[0]/2, windowHeight/2-this.drawnSize[1]/2);
   }
   text.unloadSelf = function(){
     console.log("unload text Node")
     text.state.element.style.display = "none"
   }
-  /*
-  text.drawSelf = function(){
-    // see hover region
-    fill(0,0,0,100);
-    rect(0,0,this.size[0], this.size[1]);  
-  }
-  */
+
   text.onMouseScroll = function(delta){
     let textdiv = this.state.element;
     textdiv.scrollTop += delta;
+    update_box_btn()
+    
+    // calculate new position of scroll handle
+    const maxY = scroll_bar.translation[1] + scroll_bar.size[1] - scroll_handle.size[1]
+    const minY = scroll_bar.translation[1]
+    const newY = minY + (maxY-minY) * textdiv.scrollTop  / ((text.state.element.scrollHeight - text.state.element.offsetHeight))
+    scroll_handle.setTranslate(this.translation[0], newY)
+  } 
+  
+
+  
+  scroll_bar.updateSelf = function(){
+    scroll_bar.setTranslate(windowWidth*0.68, windowHeight*0.22)
+  }
+  
+
+  scroll_handle.setTranslate(windowWidth*0.68, windowHeight * 0.22)
+  scroll_handle.updateSelf = function(){
+    scroll_handle.fitDrawnSize(scroll_bar.size[0], scroll_bar.size[1]*text.state.ratio_offset_scroll)
+    scroll_handle.setTranslate(windowWidth*0.68, this.translation[1])
+  }
+  
+  scroll_handle.onMousePress = function(){
+    this.state.pressedPos = this.translation
+  }
+  scroll_handle.onMouseDrag = function(self, currentPoint, startPoint){
+    
+    const dY = currentPoint[1] - startPoint[1]
+    const maxY = scroll_bar.translation[1] + scroll_bar.size[1] - scroll_handle.size[1]
+    const minY = scroll_bar.translation[1]
+    const newY = constrain(this.state.pressedPos[1] + dY,minY, maxY)
+    const scrollAmount = (newY - minY) / (maxY - minY) * (text.state.element.scrollHeight - text.state.element.offsetHeight)
+    // scroll the text element
+    text.state.element.scrollTop  = scrollAmount
+    // update the visibility of agreebox based on the scroll position
+    update_box_btn()
+    // translate the scroll handle
+    this.setTranslate(this.state.pressedPos[0], newY)
+  }
+
+  function update_box_btn(){
+    const textdiv = text.state.element
     const offset = 100
     if(textdiv.scrollTop + offset>= textdiv.scrollHeight - textdiv.offsetHeight){
       console.log("scroll to the end")
@@ -237,8 +291,7 @@ function make_scene_2(loader, scene_name="scene2"){
       agreebox.hide()
       agreebox.deactivate()
     }
-  } 
-  
+  }
   
   scene2.reloadSelf = function(){
     this.show()
@@ -250,10 +303,14 @@ function make_scene_2(loader, scene_name="scene2"){
     this.hide()
   }
   scene2.addChild(bg);
+  bg.addChild(leaf_scatter);
   bg.addChild(leaf_background);
   scene2.addChild(text)
   scene2.addChild(btn_start);
   scene2.addChild(agreebox);
+  scene2.addChild(scroll_bar);
+  scene2.addChild(scroll_handle);
+
   //scene2.addChild(tk);
   
 
