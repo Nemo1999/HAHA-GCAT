@@ -1,5 +1,5 @@
 
-function make_scene_1(loader, scene_name="scene1"){      
+function make_scene_11(loader, scene_name="scene1-1"){      
     
     var scene1 = new Scene(scene_name);
     var bg = new Node("background");
@@ -77,8 +77,8 @@ function make_scene_1(loader, scene_name="scene1"){
       cat_antenna_right.setRotate(0);
     }
     btn_go.onMouseClick = function(){
-      console.log("go to scene 2")
-      PubSub.publish("scene2","reload")
+      console.log("go to scene 1-2")
+      PubSub.publish("scene1-2","reload")
       scene1.unload()
     }
 
@@ -188,7 +188,7 @@ function make_scene_1(loader, scene_name="scene1"){
     return scene1;
 } 
 
-function make_scene_2(loader, scene_name="scene2"){
+function make_scene_12(loader, scene_name="scene1-2"){
   // Config Constants
   const leafNum = 100
 
@@ -333,8 +333,8 @@ function make_scene_2(loader, scene_name="scene2"){
   }
   btn_start.onMouseClick = function(){
     if(agreebox.spriteIndex == 1){
-      PubSub.publish("scene3", "reload")
-      console.log("unloading scene2")
+      PubSub.publish("scene2-1", "reload")
+      console.log("unloading scene1-2")
       scene2.unload();
     }
   }
@@ -350,9 +350,9 @@ function make_scene_2(loader, scene_name="scene2"){
   return scene2;
 }
 
-function make_scene_3(){
-  scene3 = new Scene("scene3");
-  scene3.reloadSelf = function(){
+function make_scene_21(loader, scene_name = "scene2-1"){
+  scene = new Scene(scene_name);
+  scene.reloadSelf = function(){
     this.activate()
     this.show()
   }
@@ -360,6 +360,6 @@ function make_scene_3(){
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
   }
-  scene3.addChild(bg);
-  return scene3
+  scene.addChild(bg);
+  return scene
 }
