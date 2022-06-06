@@ -22,10 +22,11 @@ async function setup() {
   
   // create scene loaders
   loader1 = new SpriteLoader("TexturePacker/Scene1.json");
+  loader2 = new SpriteLoader("TexturePacker/Scene2.json");
 
 
   // wait all loader to complete
-  await Promise.all([loader1.load()])
+  await Promise.all([loader1.load(), loader2.load()])
 
   /**
     create all scenes
@@ -36,12 +37,16 @@ async function setup() {
   // User-Agree-Box scene
   scene12 = make_scene_12(loader1, "scene1-2")
 
-  scene21 = make_scene_21(loader1, "scene2-1")
+  scene21 = make_scene_21(loader2, "scene2-1")
+  scene22 = make_scene_22(loader2, "scene2-2")
+  scene23 = make_scene_23(loader2, "scene2-3")
  
   // add scenes to scene manager
   sm.addScene(scene11);
   sm.addScene(scene12);
   sm.addScene(scene21);
+  sm.addScene(scene22);
+  sm.addScene(scene23);
   
 
   // activate scene1

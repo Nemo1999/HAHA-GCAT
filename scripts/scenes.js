@@ -31,7 +31,8 @@ function make_scene_11(loader, scene_name="scene1-1"){
     scene1.reloadSelf = function(){
       this.activate()
       this.show()
-      scene1.alpha = 0.0
+      scene1.alpha = 1.0
+      //scene1.tintColor = [0.0,0.0,0.0]
     }
     scene1.unloadSelf = function(){
       this.deactivate()
@@ -39,10 +40,13 @@ function make_scene_11(loader, scene_name="scene1-1"){
     }
     scene1.updateSelf = function(){
       if(this.accTime < 3000){
-        this.alpha = this.accTime / 3000
+        const v = this.accTime / 3000
+        this.alpha = v
+        //this.tintColor = [v,v,v]
       }
       else{
         this.alpha = null
+        this.tintColor = null
       }
     }
     scene1.addChild(bg);
@@ -351,6 +355,35 @@ function make_scene_12(loader, scene_name="scene1-2"){
 }
 
 function make_scene_21(loader, scene_name = "scene2-1"){
+  scene = new Scene(scene_name);
+  scene.reloadSelf = function(){
+    this.activate()
+    this.show()
+  }
+  const bg = new Node("bg",false);
+  bg.drawSelf = function(){
+    background(color("#FEFFD2"))
+  }
+  scene.addChild(bg);
+  return scene
+}
+
+
+function make_scene_22(loader, scene_name = "scene2-2"){
+  scene = new Scene(scene_name);
+  scene.reloadSelf = function(){
+    this.activate()
+    this.show()
+  }
+  const bg = new Node("bg",false);
+  bg.drawSelf = function(){
+    background(color("#FEFFD2"))
+  }
+  scene.addChild(bg);
+  return scene
+}
+
+function make_scene_23(loader, scene_name = "scene2-3"){
   scene = new Scene(scene_name);
   scene.reloadSelf = function(){
     this.activate()
