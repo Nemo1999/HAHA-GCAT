@@ -56,6 +56,14 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":413,"h":187},
 	"sourceSize": {"w":413,"h":187}
 },
+"cat-travel.png":
+{
+	"frame": {"x":91,"y":138,"w":304,"h":170},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":304,"h":170},
+	"sourceSize": {"w":304,"h":170}
+},
 "cloud-large.png":
 {
 	"frame": {"x":808,"y":138,"w":348,"h":195},
@@ -64,7 +72,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":348,"h":195},
 	"sourceSize": {"w":348,"h":195}
 },
-"cloud-middle.png":
+"cloud-medium.png":
 {
 	"frame": {"x":2808,"y":0,"w":250,"h":133},
 	"rotated": false,
@@ -168,14 +176,6 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":717,"h":138},
 	"sourceSize": {"w":717,"h":138}
 },
-"normal-cat.png":
-{
-	"frame": {"x":91,"y":138,"w":304,"h":170},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":304,"h":170},
-	"sourceSize": {"w":304,"h":170}
-},
 "rock-blink.png":
 {
 	"frame": {"x":1857,"y":0,"w":88,"h":55},
@@ -267,6 +267,6 @@
 	"format": "RGBA8888",
 	"size": {"w":3775,"h":1246},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:d8607cd59ceea8325c9678ca92dedd81:3b1217ad702eaa26a54d5756e5afaeef:40117f79846e620570a0cc9c741dada6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:936d480aed0848a32c7177a1e30e53e9:5e73c72bdd8e68dfdb7da84a49122028:40117f79846e620570a0cc9c741dada6$"
 }
 }

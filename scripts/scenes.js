@@ -356,18 +356,112 @@ function make_scene_12(loader, scene_name="scene1-2"){
 
 function make_scene_21(loader, scene_name = "scene2-1"){
   scene = new Scene(scene_name);
+  const bg = new Node("bg",false);
+  const ground = new Node("ground", false);
+  const cat = new SpriteNode(loader.get_handle("cat-travel.png"))
+  const cloud = new Node("clouds", false)
+  const cloud_small = new SpriteNode(loader.get_handle("cloud-small.png"))
+  const cloud_medium = new SpriteNode(loader.get_handle("cloud-medium.png"))
+  const cloud_large = new SpriteNode(loader.get_handle("cloud-large.png"))
+  const grass_left = new SpriteNode(loader.get_handle("grass-left.png"))
+  const grass_right = new SpriteNode(loader.get_handle("grass-right.png"))
+  const rock = new SpriteNode(loader.get_handle(["rock.png", "rock-blink.png"]))
+  const text = new SpriteNode(loader.get_handle("text-2-1.png"))
+
   scene.reloadSelf = function(){
+    this.alpha = 0.0
+    this.state.invokeNextScene = false
     this.activate()
     this.show()
   }
-  const bg = new Node("bg",false);
+  scene.updateSelf = function(){
+    if(this.accTime < 1500){
+      this.alpha = this.accTime / 1500
+    }
+    else{
+      this.alpha = null
+    }
+
+    if(this.accTime > 7000){
+      if(this.state.invokeNextScene = false){
+        PubSub.publish("scene2-2","reload")
+        this.state.invokeNextScene = true
+      }
+      this.alpha = 1 - (this.accTime-7000) / 500
+    }
+    if(this.accTime > 7500){
+      this.deactivate()
+      this.hide()
+    }
+  }
+
+  text.setTranslate(windowWidth*0.25, windowHeight*0.35)
+
+  grass_left.setTranslate(windowWidth*0.2, windowHeight*0.85)
+  grass_right.setTranslate(windowWidth*0.75, windowHeight*0.64)
+
+  rock.setTranslate(windowWidth*0.6, windowHeight*0.9)
+  rock.updateSelf = function(){
+    const duty = this.accTime % 2000
+    if(duty > 1200 && duty < 1500){
+      this.setSprite(1)
+    }
+    else{
+      this.setSprite(0)
+    }
+  }  
+
+  ground.drawSelf = function(){
+    noStroke();
+    rectMode(CORNER)
+    const ground_color = color("#D4BFA5")
+    ground_color.setAlpha(this.accAlpha*255)
+    fill(ground_color)
+    rect(0,windowHeight*0.66, windowWidth, windowHeight)
+  }
+
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
   }
+
+  cloud_small.updateSelf = function(){
+    this.setScale(pulse(1, 1.1, 3000, 0.6, 0.4) (this.accTime))
+  }
+  cloud_medium.updateSelf = function(){
+    this.setScale(pulse(1, 1.1, 3000, 0.5, 0.4)(this.accTime))
+  }
+  cloud_large.updateSelf = function(){
+    this.setScale(pulse(1, 1.1, 3000, 0.4, 0.4)(this.accTime))
+  }
+  cloud_small.setTranslate(windowWidth*0.15, windowHeight*0.12)
+  cloud_medium.setTranslate(windowWidth*0.26, windowHeight*0.20)
+  cloud_large.setTranslate(windowWidth*0.70, windowHeight*0.10)
+  
+  cloud.updateSelf = function(){
+    this.setTranslate(10*sin(this.accTime/600),10*cos(this.accTime/600))
+  }
+
+  cat.setTranslate(windowWidth*0.1,windowHeight*0.65)
+  cat.updateSelf = function(){
+    if(this.accTime < 7000){
+      this.setTranslate(windowWidth*((0.5-0.1)*this.accTime/7000+0.1),windowHeight*0.65)
+    }
+  }
+
+
+  cloud.addChild(cloud_small)
+  cloud.addChild(cloud_medium)
+  cloud.addChild(cloud_large)
   scene.addChild(bg);
+  scene.addChild(ground);  
+  scene.addChild(cloud)
+  scene.addChild(grass_left);
+  scene.addChild(grass_right);
+  scene.addChild(text)
+  scene.addChild(rock);
+  scene.addChild(cat)
   return scene
 }
-
 
 function make_scene_22(loader, scene_name = "scene2-2"){
   scene = new Scene(scene_name);
