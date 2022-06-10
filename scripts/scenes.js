@@ -383,7 +383,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     }
 
     if(this.accTime > 7000){
-      if(this.state.invokeNextScene = false){
+      if(this.state.invokeNextScene == false){
         PubSub.publish("scene2-2","reload")
         this.state.invokeNextScene = true
       }
@@ -464,16 +464,67 @@ function make_scene_21(loader, scene_name = "scene2-1"){
 }
 
 function make_scene_22(loader, scene_name = "scene2-2"){
-  scene = new Scene(scene_name);
+  const scene = new Scene(scene_name);
+  const bg = new Node("bg",false);
+  const water = new Node("water",false)
+  const cat = new Node("cat", false);
+  const birds = new Node("birds",false);
+  const cat_head = new SpriteNode(loader.get_handle("cat-head.png"))
+  const cat_antenna_left = new SpriteNode(loader.get_handle("antenna-left.png"))
+  const cat_antenna_right = new SpriteNode(loader.get_handle("antenna-right.png"))
+  const island = new SpriteNode(loader.get_handle("island.png"))
+  const flag = new SpriteNode(loader.get_handle("flag.png"))
+  const bird1 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
+  const bird2 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
+  const bird3 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
+
+  birds.addChild(bird1)
+  birds.addChild(bird2)
+  birds.addChild(bird3)
+
+  cat.addChild(cat_antenna_left);
+  cat.addChild(cat_antenna_right);
+  //cat.addChild(cat_head);
+
+  island.setTranslate(windowWidth*0.6, windowHeight*0.4)
+
+  const waterLevelAvg = windowWidth * 0.5
+  water.drawSelf = function(){
+    const water_col = color('#37CADE')
+    water_col.setAlpha(0.48*255*this.accAlpha)
+    const waterStep = 10
+    fill(water_col);
+    noStroke();
+    beginShape();
+    for(let i = 0; i < windowWidth; i+=waterStep){
+      let water_level = 0
+      water_level += cos(this.accTime/700+i/65)
+      water_level += cos(-this.accTime/300+i/150)*10
+      water_level += sin(this.accTime/2000+i/400)*30
+      vertex(i, water_level + waterLevelAvg);
+    }
+    vertex(windowWidth, waterLevelAvg)
+    vertex(windowWidth, windowHeight);
+    vertex(0, windowHeight);
+    endShape(CLOSE);
+    
+  }
+  
+  
   scene.reloadSelf = function(){
     this.activate()
     this.show()
   }
-  const bg = new Node("bg",false);
+  
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
   }
+
   scene.addChild(bg);
+  scene.addChild(water)
+  scene.addChild(island);
+  scene.addChild(cat);
+  scene.addChild(birds);
   return scene
 }
 
