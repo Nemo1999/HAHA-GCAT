@@ -624,7 +624,19 @@ function make_scene_22(loader, scene_name = "scene2-2"){
 }
 
 function make_scene_23(loader, scene_name = "scene2-3"){
-  scene = new Scene(scene_name);
+  const scene = new Scene(scene_name);
+  const bg = new Node("bg",false);
+  const diagnal_seperator = new SpriteNode(loader.get_handle("diagnal-seperator.png"));
+  const water_top_left = new Node("water_top_left",false);
+  const water_buttom_right = new Node("water_buttom_right",false);
+  const fish_small = new SpriteNode(loader.get_handle("fish-small.png"));
+  const fish_medium = new SpriteNode(loader.get_handle("fish-medium.png"));
+  const fish_large = new SpriteNode(loader.get_handle("fish-large.png"));
+  const text_231 = new SpriteNode(loader.get_handle("text-2-3-1.png"));
+  const text_232 = new SpriteNode(loader.get_handle("text-2-3-2.png"));
+  const cat_sweat = new SpriteNode(loader.get_handle(["cat-sweat-1.png", "cat-sweat-2.png"]));
+  const cat_boat = new SpriteNode(loader.get_handle("cat-boat.png"));
+
   scene.reloadSelf = function(){
     this.activate()
     this.show()
@@ -640,6 +652,102 @@ function make_scene_23(loader, scene_name = "scene2-3"){
     if(this.accTime > 7000){
       if(this.state.invokeNextScene == false){
         PubSub.publish("scene2-4","reload")
+        this.state.invokeNextScene = true
+      }
+      //this.alpha = 1 - (this.accTime-7000) / 500
+    }
+    if(this.accTime > 7500){
+      this.deactivate()
+      //this.hide()
+    }
+  }
+  
+  bg.drawSelf = function(){
+    background(color("#FEFFD2"))
+  }
+
+  diagnal_seperator.setTranslate(windowWidth*1.1,- windowHeight*0.13)
+  const window_diagnal_size = Math.sqrt(windowWidth*windowWidth + windowHeight*windowHeight)
+  const window_diagnal_angle = Math.atan(windowWidth/windowHeight)
+  diagnal_seperator.setSize(diagnal_seperator.size[0]*1.3, window_diagnal_size*1.1)
+  diagnal_seperator.setRotate(window_diagnal_angle)
+
+  cat_sweat.setTranslate(windowWidth*0.2, windowHeight*0.4 - cat_sweat.drawnSize[1])
+  cat_boat.setTranslate(windowWidth*0.7, windowHeight*0.7 - cat_boat.drawnSize[1])
+
+  water_top_left.drawSelf = function(){
+    const waterLevelAvg = windowHeight * 0.4
+    const water_col = color('#37CADE')
+    water_col.setAlpha(0.48*255*this.accAlpha)
+    const waterStep = 10
+    fill(water_col);
+    noStroke();
+    beginShape();
+    for(let i = 0; i < windowWidth * 0.59; i+=waterStep){
+      let water_level = 0
+      water_level += cos(this.accTime/700+i/65)
+      water_level += cos(-this.accTime/300+i/150)*5
+      water_level += sin(this.accTime/2000+i/400)*10
+      vertex(i, water_level + waterLevelAvg);
+    }
+    vertex(windowWidth*0.6-10, waterLevelAvg)
+    //vertex(windowWidth, windowHeight);
+    vertex(0, windowHeight);
+    endShape(CLOSE);
+    
+  }
+
+  water_buttom_right.drawSelf = function(){
+    const waterLevelAvg = windowHeight * 0.7
+    const water_col = color('#37CADE')
+    water_col.setAlpha(0.48*255*this.accAlpha)
+    const waterStep = 10
+    fill(water_col);
+    noStroke();
+    beginShape();
+    for(let i = windowWidth*0.3+10 ; i < windowWidth; i+=waterStep){
+      let water_level = 0
+      water_level += cos(this.accTime/700+i/65)
+      water_level += cos(-this.accTime/300+i/150)* 5
+      water_level += sin(this.accTime/2000+i/400)* 10
+      vertex(i, water_level + waterLevelAvg);
+    }
+    vertex(windowWidth, waterLevelAvg)
+    vertex(windowWidth, windowHeight);
+    vertex(0, windowHeight);
+    vertex(windowWidth*0.3-10, windowHeight*0.7)
+    endShape(CLOSE);
+    
+  }
+
+  scene.addChild(bg);
+  scene.addChild(water_top_left);
+  scene.addChild(water_buttom_right);
+  scene.addChild(diagnal_seperator)
+  scene.addChild(cat_sweat)
+  scene.addChild(cat_boat)
+ 
+  return scene
+}
+
+
+function make_scene_24(loader, scene_name = "scene2-4"){
+  scene = new Scene(scene_name);
+  scene.reloadSelf = function(){
+    this.activate()
+    this.show()
+  }
+  scene.updateSelf = function(){
+    if(this.accTime < 1500){
+      this.alpha = this.accTime / 1500
+    }
+    else{
+      this.alpha = null
+    }
+
+    if(this.accTime > 7000){
+      if(this.state.invokeNextScene == false){
+        PubSub.publish("scene3","reload")
         this.state.invokeNextScene = true
       }
       this.alpha = 1 - (this.accTime-7000) / 500

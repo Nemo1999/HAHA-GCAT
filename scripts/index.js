@@ -40,7 +40,7 @@ async function setup() {
   scene21 = make_scene_21(loader2, "scene2-1")
   scene22 = make_scene_22(loader2, "scene2-2")
   scene23 = make_scene_23(loader2, "scene2-3")
- 
+  scene24 = make_scene_24(loader2, "scene2-4")
   // add scenes to scene manager
   sm.addScene(scene11);
   sm.addScene(scene12);
