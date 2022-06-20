@@ -497,7 +497,7 @@ function make_scene_22(loader, scene_name = "scene2-2"){
 
     if(this.accTime > 7000){
       if(this.state.invokeNextScene == false){
-        PubSub.publish("scene2-ˇ","reload")
+        PubSub.publish("scene2-4","reload")
         this.state.invokeNextScene = true
       }
       this.alpha = 1 - (this.accTime-7000) / 500
