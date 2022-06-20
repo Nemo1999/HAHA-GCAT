@@ -477,18 +477,118 @@ function make_scene_22(loader, scene_name = "scene2-2"){
   const bird1 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
   const bird2 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
   const bird3 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
+  const island_flag = new Node("island_and_flag",false)
+  const text_22 = new SpriteNode(loader.get_handle("text-2-2.png"))
+  
+  text_22.setTranslate(windowWidth*0.55, windowHeight*0.20)
+
+  scene.reloadSelf = function(){
+    this.activate()
+    this.show()
+  }
+
+  scene.updateSelf = function(){
+    if(this.accTime < 1500){
+      this.alpha = this.accTime / 1500
+    }
+    else{
+      this.alpha = null
+    }
+
+    if(this.accTime > 7000){
+      if(this.state.invokeNextScene == false){
+        PubSub.publish("scene2-ˇ","reload")
+        this.state.invokeNextScene = true
+      }
+      this.alpha = 1 - (this.accTime-7000) / 500
+    }
+    if(this.accTime > 7500){
+      this.deactivate()
+      this.hide()
+    }
+  }
 
   birds.addChild(bird1)
   birds.addChild(bird2)
   birds.addChild(bird3)
 
+  bird1.setTranslate(100,100)
+  bird1.setScale(0.3)
+
+  bird2.setTranslate(windowWidth*0.1 ,200)
+  bird2.setScale(0.7)
+  bird2.setRotate(-0.4)
+
+  bird3.setTranslate(windowWidth*0.9, 200)
+  bird3.setScale(0.5)
+  bird3.setRotate(0.1)
+
+  bird1.updateSelf = function(){
+    const duty = this.accTime % 1000
+    if(duty > 200 && duty < 500){
+      if(this.spriteIndex == 0){
+        this.setSprite(1)
+        this.setTranslate(this.translation[0],this.translation[1]-10)
+      }
+    }
+    else{
+      if(this.spriteIndex == 1){
+        this.setSprite(0)
+        this.setTranslate(this.translation[0],this.translation[1]+10)
+      }
+    }
+  } 
+
+  bird2.updateSelf = function(){
+    const duty = this.accTime % 1000
+    if(duty > 100 && duty < 400){
+      if(this.spriteIndex == 0){
+        this.setSprite(1)
+        this.setTranslate(this.translation[0],this.translation[1]-10)
+      }
+    }
+    else{
+      if(this.spriteIndex == 1){
+        this.setSprite(0)
+        this.setTranslate(this.translation[0],this.translation[1]+10)
+      }
+    }
+  } 
+
+  bird3.updateSelf = function(){
+    const duty = this.accTime % 1000
+    if(duty > 300 && duty < 600){
+      if(this.spriteIndex == 0){
+        this.setSprite(1)
+        this.setTranslate(this.accX,this.accY-10)
+      }
+    }
+    else{
+      if(this.spriteIndex == 1){
+        this.setSprite(0)
+        this.setTranslate(this.translation[0],this.translation[1]+10)
+      }
+      
+    }
+  }  
+
+
+  cat.setTranslate(windowWidth*0.1, windowHeight - cat_head.drawnSize[1])
+  cat.addChild(cat_head);
   cat.addChild(cat_antenna_left);
   cat.addChild(cat_antenna_right);
-  //cat.addChild(cat_head);
+  
+  cat_antenna_left.setTranslate(360,-350)
+  cat_antenna_right.setTranslate(540,-200)
+  cat_head.setTranslate(0,0)
 
-  island.setTranslate(windowWidth*0.6, windowHeight*0.4)
+  
+  island_flag.addChild(island)
+  island_flag.addChild(flag)
+  island_flag.setTranslate(windowWidth*0.6, windowHeight*0.61 - island.drawnSize[1]*0.7)
+  flag.setTranslate(island.size[0]*0.6,flag.size[1]*-0.9)
 
-  const waterLevelAvg = windowWidth * 0.5
+  const waterLevelAvg = windowHeight * 0.6
   water.drawSelf = function(){
     const water_col = color('#37CADE')
     water_col.setAlpha(0.48*255*this.accAlpha)
@@ -499,8 +599,8 @@ function make_scene_22(loader, scene_name = "scene2-2"){
     for(let i = 0; i < windowWidth; i+=waterStep){
       let water_level = 0
       water_level += cos(this.accTime/700+i/65)
-      water_level += cos(-this.accTime/300+i/150)*10
-      water_level += sin(this.accTime/2000+i/400)*30
+      water_level += cos(-this.accTime/300+i/150)*5
+      water_level += sin(this.accTime/2000+i/400)*10
       vertex(i, water_level + waterLevelAvg);
     }
     vertex(windowWidth, waterLevelAvg)
@@ -510,21 +610,16 @@ function make_scene_22(loader, scene_name = "scene2-2"){
     
   }
   
-  
-  scene.reloadSelf = function(){
-    this.activate()
-    this.show()
-  }
-  
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
   }
 
   scene.addChild(bg);
-  scene.addChild(water)
-  scene.addChild(island);
+  scene.addChild(island_flag);
+  scene.addChild(water);
   scene.addChild(cat);
   scene.addChild(birds);
+  scene.addChild(text_22);
   return scene
 }
 
@@ -534,6 +629,27 @@ function make_scene_23(loader, scene_name = "scene2-3"){
     this.activate()
     this.show()
   }
+  scene.updateSelf = function(){
+    if(this.accTime < 1500){
+      this.alpha = this.accTime / 1500
+    }
+    else{
+      this.alpha = null
+    }
+
+    if(this.accTime > 7000){
+      if(this.state.invokeNextScene == false){
+        PubSub.publish("scene2-4","reload")
+        this.state.invokeNextScene = true
+      }
+      this.alpha = 1 - (this.accTime-7000) / 500
+    }
+    if(this.accTime > 7500){
+      this.deactivate()
+      this.hide()
+    }
+  }
+
   const bg = new Node("bg",false);
   bg.drawSelf = function(){
     background(color("#FEFFD2"))
