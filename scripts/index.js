@@ -48,9 +48,19 @@ async function setup() {
   sm.addScene(scene22);
   sm.addScene(scene23);
   
+  // jump to specific page using url search parameter
+  url = new URL(window.location.href)
+  p = url.searchParams.get("page")
+  console.log(url,p)
+  if(p){
+    PubSub.publish(p,"reload")
+  }
+  else{
+    // activate scene1
+    PubSub.publish("scene1-1","reload")
+  }
 
-  // activate scene1
-  PubSub.publish("scene1-1","reload")
+
   /* activate and show are defined in reloadSelf callback
   PubSub.publish("scene1", "activate");
   PubSub.publish("scene1", "show");
