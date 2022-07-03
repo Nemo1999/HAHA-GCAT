@@ -446,7 +446,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
       }
     }
     
-    text_24.setTranslate(windowWidth*0.3, windowHeight*0.1)
+    text_24.setCenter(windowWidth*0.5, windowHeight*0.25)
 
     cat_cheer.updateSelf = function(){
       this.setTranslate(windowWidth*0.4, pulse(windowHeight-this.drawnSize[1]-island_cheer.drawnSize[1]+20, windowHeight*0.3, 1000)(this.accTime))
