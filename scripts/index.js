@@ -47,6 +47,7 @@ async function setup() {
   sm.addScene(scene21);
   sm.addScene(scene22);
   sm.addScene(scene23);
+  sm.addScene(scene24);
   
   // jump to specific page using url search parameter
   url = new URL(window.location.href)

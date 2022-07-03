@@ -286,6 +286,8 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     scene.reloadSelf = function(){
       this.activate()
       this.show()
+      this.state.invokeNextScene = false
+      this.alpha = 0.0
     }
     scene.updateSelf = function(){
       if(this.accTime < 1500){
@@ -294,13 +296,12 @@ function make_scene_21(loader, scene_name = "scene2-1"){
       else{
         this.alpha = null
       }
-  
       if(this.accTime > 7000){
         if(this.state.invokeNextScene == false){
           PubSub.publish("scene2-4","reload")
           this.state.invokeNextScene = true
         }
-        //this.alpha = 1 - (this.accTime-7000) / 500
+        this.alpha = 1 - (this.accTime-7000) / 500
       }
       if(this.accTime > 7500){
         this.deactivate()
@@ -403,10 +404,26 @@ function make_scene_21(loader, scene_name = "scene2-1"){
   
   
   function make_scene_24(loader, scene_name = "scene2-4"){
+    
     scene = new Scene(scene_name);
+    const tree_brown = new SpriteNode(loader.get_handle("tree-brown.png"));
+    const tree_dark_green = new SpriteNode(loader.get_handle("tree-dark-green.png"));
+    const tree_dark_green_small =  new SpriteNode(loader.get_handle("tree-dark-green.png"));
+    const tree_light_green = new SpriteNode(loader.get_handle("tree-light-green.png"));
+    const tree_brown_2 = new SpriteNode(loader.get_handle("tree-brown.png"));
+    const island_cheer = new SpriteNode(loader.get_handle("island-cheer.png"));
+    const text_24 = new SpriteNode(loader.get_handle("text-2-4.png"));
+    const flag_cheer = new SpriteNode(loader.get_handle("flag-cheer.png"));
+    const cat_cheer = new SpriteNode(loader.get_handle("cat-cheer.png"));
+    const coconut1 = new SpriteNode(loader.get_handle("coconut.png"));
+    const coconut2 = new SpriteNode(loader.get_handle("coconut.png"));
+    const coconut3 = new SpriteNode(loader.get_handle("coconut.png"));
+    
     scene.reloadSelf = function(){
       this.activate()
       this.show()
+      this.state.invokeNextScene = false
+      this.alpha = 0.0
     }
     scene.updateSelf = function(){
       if(this.accTime < 1500){
@@ -418,7 +435,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
   
       if(this.accTime > 7000){
         if(this.state.invokeNextScene == false){
-          PubSub.publish("scene3","reload")
+          PubSub.publish("scene3-1","reload")
           this.state.invokeNextScene = true
         }
         this.alpha = 1 - (this.accTime-7000) / 500
@@ -428,11 +445,46 @@ function make_scene_21(loader, scene_name = "scene2-1"){
         this.hide()
       }
     }
-  
+    
+    text_24.setTranslate(windowWidth*0.3, windowHeight*0.1)
+
+    cat_cheer.updateSelf = function(){
+      this.setTranslate(windowWidth*0.4, pulse(windowHeight-this.drawnSize[1]-island_cheer.drawnSize[1]+20, windowHeight*0.3, 1000)(this.accTime))
+    }
+
+    tree_brown.setTranslate(windowWidth*-0.0, windowHeight*0.4)
+    tree_dark_green.setTranslate(windowWidth*0.05, windowHeight*0.1)
+    tree_light_green.setTranslate(windowWidth*0.8, windowHeight*0.1 )
+    tree_brown_2.setTranslate(windowWidth*0.75, windowHeight*0.4)
+    tree_dark_green_small.setTranslate(windowWidth*0.8, windowHeight*0.55)
+    tree_dark_green_small.setScale(0.5)
+    
+    tree_dark_green.addChild(coconut1)
+    tree_dark_green.addChild(coconut2)
+    tree_dark_green.addChild(coconut3)
+    coconut1.setTranslate(tree_dark_green.drawnSize[0]*0.45, 400)
+    coconut2.setTranslate(tree_dark_green.drawnSize[0]*0.55, 410)
+    coconut3.setTranslate(tree_dark_green.drawnSize[0]*0.9, 700)
+
+    flag_cheer.setTranslate(windowWidth*0.55, windowHeight - island_cheer.drawnSize[1] - flag_cheer.drawnSize[1])
+
+    island_cheer.setCenter(windowWidth*0.5,  windowHeight - island_cheer.drawnSize[1]*0.5)
+
+
     const bg = new Node("bg",false);
     bg.drawSelf = function(){
       background(color("#FEFFD2"))
     }
     scene.addChild(bg);
+    scene.addChild(island_cheer);
+    scene.addChild(tree_dark_green);
+    scene.addChild(tree_light_green);
+    scene.addChild(tree_brown_2);
+    scene.addChild(tree_brown);
+    scene.addChild(tree_dark_green_small);
+    scene.addChild(flag_cheer);
+    scene.addChild(cat_cheer);
+    scene.addChild(text_24);
+
     return scene
   }
