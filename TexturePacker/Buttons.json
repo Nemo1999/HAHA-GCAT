@@ -1,0 +1,188 @@
+{"frames": {
+
+"btn-go-hovered.png":
+{
+	"frame": {"x":391,"y":232,"w":114,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":66},
+	"sourceSize": {"w":114,"h":66}
+},
+"btn-go.png":
+{
+	"frame": {"x":246,"y":282,"w":114,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":66},
+	"sourceSize": {"w":114,"h":66}
+},
+"btn-next-hovered.png":
+{
+	"frame": {"x":366,"y":2,"w":141,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":141,"h":66},
+	"sourceSize": {"w":141,"h":66}
+},
+"btn-next-metaverse-hovered.png":
+{
+	"frame": {"x":366,"y":72,"w":141,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":141,"h":66},
+	"sourceSize": {"w":141,"h":66}
+},
+"btn-next-metaverse.png":
+{
+	"frame": {"x":320,"y":142,"w":141,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":141,"h":66},
+	"sourceSize": {"w":141,"h":66}
+},
+"btn-next.png":
+{
+	"frame": {"x":2,"y":212,"w":141,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":141,"h":66},
+	"sourceSize": {"w":141,"h":66}
+},
+"btn-playagain-hovered.png":
+{
+	"frame": {"x":2,"y":2,"w":178,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":66},
+	"sourceSize": {"w":178,"h":66}
+},
+"btn-playagain-metaverse-hovered.png":
+{
+	"frame": {"x":184,"y":2,"w":178,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":66},
+	"sourceSize": {"w":178,"h":66}
+},
+"btn-playagain-metaverse.png":
+{
+	"frame": {"x":2,"y":72,"w":178,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":66},
+	"sourceSize": {"w":178,"h":66}
+},
+"btn-playagain.png":
+{
+	"frame": {"x":184,"y":72,"w":178,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":66},
+	"sourceSize": {"w":178,"h":66}
+},
+"btn-share-hovered.png":
+{
+	"frame": {"x":147,"y":212,"w":118,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":66},
+	"sourceSize": {"w":118,"h":66}
+},
+"btn-share-metaverse-hovered.png":
+{
+	"frame": {"x":269,"y":212,"w":118,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":66},
+	"sourceSize": {"w":118,"h":66}
+},
+"btn-share-metaverse.png":
+{
+	"frame": {"x":2,"y":282,"w":118,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":66},
+	"sourceSize": {"w":118,"h":66}
+},
+"btn-share.png":
+{
+	"frame": {"x":124,"y":282,"w":118,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":66},
+	"sourceSize": {"w":118,"h":66}
+},
+"btn-start-hovered.png":
+{
+	"frame": {"x":2,"y":142,"w":155,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":155,"h":66},
+	"sourceSize": {"w":155,"h":66}
+},
+"btn-start.png":
+{
+	"frame": {"x":161,"y":142,"w":155,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":155,"h":66},
+	"sourceSize": {"w":155,"h":66}
+},
+"checkbox-green-hovered.png":
+{
+	"frame": {"x":465,"y":142,"w":26,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+"checkbox-green.png":
+{
+	"frame": {"x":465,"y":172,"w":26,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+"checkbox-purple-checked.png":
+{
+	"frame": {"x":465,"y":202,"w":26,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+"checkbox-purple.png":
+{
+	"frame": {"x":364,"y":302,"w":26,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+"checkbox-white-checked.png":
+{
+	"frame": {"x":394,"y":302,"w":26,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
+	"sourceSize": {"w":26,"h":26}
+},
+"checkbox-white.png":
+{
+	"frame": {"x":424,"y":302,"w":26,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
+	"sourceSize": {"w":26,"h":26}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Buttons.png",
+	"format": "RGBA8888",
+	"size": {"w":509,"h":350},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:509673775020cbae49b364e3af2f7932:867500b484cd94dfbfaa87898cc417ea:3927448dce5de7869762a67ec500bb79$"
+}
+}
