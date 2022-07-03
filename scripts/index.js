@@ -21,12 +21,14 @@ async function setup() {
   text('Loading', windowWidth/2, windowHeight/2);
   
   // create scene loaders
-  loader1 = new SpriteLoader("TexturePacker/Scene1.json");
-  loader2 = new SpriteLoader("TexturePacker/Scene2.json");
-
+  const loader1 = new SpriteLoader("TexturePacker/Scene1.json");
+  const loader2 = new SpriteLoader("TexturePacker/Scene2.json");
+  const loader3 = new SpriteLoader("TexturePacker/Scene3.json");
+  const loader_buttons = new SpriteLoader("TexturePacker/Buttons.json");
+  const loader_cats = new SpriteLoader("TexturePacker/Cats.json");
 
   // wait all loader to complete
-  await Promise.all([loader1.load(), loader2.load()])
+  await Promise.all([loader1.load(), loader2.load(), loader3.load(), loader_buttons.load(), loader_cats.load()]);
 
   /**
     create all scenes
@@ -41,6 +43,9 @@ async function setup() {
   scene22 = make_scene_22(loader2, "scene2-2")
   scene23 = make_scene_23(loader2, "scene2-3")
   scene24 = make_scene_24(loader2, "scene2-4")
+
+  scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
+
   // add scenes to scene manager
   sm.addScene(scene11);
   sm.addScene(scene12);
@@ -48,6 +53,7 @@ async function setup() {
   sm.addScene(scene22);
   sm.addScene(scene23);
   sm.addScene(scene24);
+  sm.addScene(scene31);
   
   // jump to specific page using url search parameter
   url = new URL(window.location.href)
