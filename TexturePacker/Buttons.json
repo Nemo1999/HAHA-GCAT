@@ -128,7 +128,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":155,"h":66},
 	"sourceSize": {"w":155,"h":66}
 },
-"checkbox-green-hovered.png":
+"checkbox-green-checked.png":
 {
 	"frame": {"x":465,"y":142,"w":26,"h":26},
 	"rotated": false,
@@ -183,6 +183,6 @@
 	"format": "RGBA8888",
 	"size": {"w":509,"h":350},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:509673775020cbae49b364e3af2f7932:867500b484cd94dfbfaa87898cc417ea:3927448dce5de7869762a67ec500bb79$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ca24d44900d7adf0fe097708a6b3602e:867500b484cd94dfbfaa87898cc417ea:3927448dce5de7869762a67ec500bb79$"
 }
 }

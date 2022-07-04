@@ -259,7 +259,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../assets/Buttons/checkbox-green-hovered.png</key>
+            <key type="filename">../assets/Buttons/checkbox-green-checked.png</key>
             <key type="filename">../assets/Buttons/checkbox-green.png</key>
             <key type="filename">../assets/Buttons/checkbox-purple-checked.png</key>
             <key type="filename">../assets/Buttons/checkbox-purple.png</key>
@@ -298,12 +298,12 @@
             <filename>../assets/Buttons/btn-share.png</filename>
             <filename>../assets/Buttons/btn-start-hovered.png</filename>
             <filename>../assets/Buttons/btn-start.png</filename>
-            <filename>../assets/Buttons/checkbox-green-hovered.png</filename>
             <filename>../assets/Buttons/checkbox-green.png</filename>
             <filename>../assets/Buttons/checkbox-purple-checked.png</filename>
             <filename>../assets/Buttons/checkbox-purple.png</filename>
             <filename>../assets/Buttons/checkbox-white-checked.png</filename>
             <filename>../assets/Buttons/checkbox-white.png</filename>
+            <filename>../assets/Buttons/checkbox-green-checked.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
