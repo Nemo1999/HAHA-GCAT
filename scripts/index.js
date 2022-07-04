@@ -37,7 +37,7 @@ async function setup() {
   // Cover Scene
   scene11 = make_scene_11(loader1, "scene1-1")
   // User-Agree-Box scene
-  scene12 = make_scene_12(loader1, "scene1-2")
+  scene12 = make_scene_12(loader1, loader_buttons ,"scene1-2")
 
   scene21 = make_scene_21(loader2, "scene2-1")
   scene22 = make_scene_22(loader2, "scene2-2")

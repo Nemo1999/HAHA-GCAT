@@ -192,7 +192,7 @@ function make_scene_11(loader, scene_name="scene1-1"){
     return scene1;
 } 
 
-function make_scene_12(loader, scene_name="scene1-2"){
+function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
   // Config Constants
   const leafNum = 100
 
@@ -202,8 +202,8 @@ function make_scene_12(loader, scene_name="scene1-2"){
   const bg = new Node("bg",false);
   const leaf_background = new SpriteNode(loader.get_handle("leaf-background.png"),false);
   //const tk = mouseTracker(sm);
-  const btn_start = new SpriteNode(loader.get_handle(["btn-start.png", "btn-start-hovered.png"]),false, true);
-  const agreebox = new SpriteNode(loader.get_handle(["agreebox.png","agreebox-checked.png"]),false, true);
+  const btn_start = new SpriteNode(loader_buttons.get_handle(["btn-start.png", "btn-start-hovered.png"]),false, true);
+  const agreebox = new SpriteNode(loader_buttons.get_handle(["agreebox.png","agreebox-checked.png"]),false, true);
   const text = new SizeNode("text box", windowWidth*0.5, windowHeight*0.55, false, true)
   const leaf_scatter = new Node("leaf-scatter", false)
   const leaf_nodes = []
