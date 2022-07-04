@@ -452,12 +452,13 @@ function make_scene_21(loader, scene_name = "scene2-1"){
       this.setTranslate(windowWidth*0.4, pulse(windowHeight-this.drawnSize[1]-island_cheer.drawnSize[1]+20, windowHeight*0.3, 1000)(this.accTime))
     }
 
-    tree_brown.setTranslate(windowWidth*-0.0, windowHeight*0.4)
-    tree_dark_green.setTranslate(windowWidth*0.05, windowHeight*0.1)
-    tree_light_green.setTranslate(windowWidth*0.8, windowHeight*0.1 )
-    tree_brown_2.setTranslate(windowWidth*0.75, windowHeight*0.4)
-    tree_dark_green_small.setTranslate(windowWidth*0.8, windowHeight*0.55)
+    tree_brown.setTranslate(windowWidth*-0.0, windowHeight - tree_brown.drawnSize[1])
+    tree_dark_green.setTranslate(windowWidth*0.05, windowHeight -100 - tree_dark_green.drawnSize[1])
+    tree_light_green.setTranslate(windowWidth*0.8, windowHeight -100 - tree_light_green.drawnSize[1])
+    tree_brown_2.setTranslate(windowWidth*0.75, windowHeight -50 - tree_brown_2.drawnSize[1])
     tree_dark_green_small.setScale(0.5)
+    tree_dark_green_small.setTranslate(windowWidth*0.8, windowHeight -50 - tree_dark_green_small.drawnSize[1]*0.5)
+    
     
     tree_dark_green.addChild(coconut1)
     tree_dark_green.addChild(coconut2)
@@ -468,6 +469,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
 
     flag_cheer.setTranslate(windowWidth*0.55, windowHeight - island_cheer.drawnSize[1] - flag_cheer.drawnSize[1])
 
+    island_cheer.setSize(windowWidth, island_cheer.drawnSize[1])
     island_cheer.setCenter(windowWidth*0.5,  windowHeight - island_cheer.drawnSize[1]*0.5)
 
 
