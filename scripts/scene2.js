@@ -457,7 +457,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     tree_light_green.setTranslate(windowWidth*0.8, windowHeight -100 - tree_light_green.drawnSize[1])
     tree_brown_2.setTranslate(windowWidth*0.75, windowHeight -50 - tree_brown_2.drawnSize[1])
     tree_dark_green_small.setScale(0.5)
-    tree_dark_green_small.setTranslate(windowWidth*0.8, windowHeight -50 - tree_dark_green_small.drawnSize[1]*0.5)
+    tree_dark_green_small.setTranslate(windowWidth*0.8, windowHeight -50 - tree_dark_green_small.drawnSize[1])
     
     
     tree_dark_green.addChild(coconut1)
