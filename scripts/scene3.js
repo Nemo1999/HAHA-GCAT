@@ -12,7 +12,10 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     const answer_312 = new SpriteNode(loader.get_handle("answer3-1-2.png"));
     const cat_init = new SpriteNode(loader.get_handle("cat-init.png"));
     const backpack = new SpriteNode(loader.get_handle("backpack.png"));
+    
     const water = new Node("water",false)
+    const waterLevelAvg = windowHeight * 0.7
+
     const background_scene = new Node("background_scene",false);
 
     const birds = new Node("birds",false);
@@ -27,9 +30,20 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
 
     const normal_cat = new SpriteNode(loader_cat.get_handle(["normal-cat.png", "normal-cat-1.png", "normal-cat-2.png", "normal-cat-3.png", "normal-cat-4.png", "normal-cat-blink.png"]));
     const float_wood = new SpriteNode(loader.get_handle("float-wood.png"));
-    const waterLevelAvg = windowHeight * 0.7
+   
+    const boat = new SpriteNode(loader.get_handle("boat.png"));
+    const alert = new SpriteNode(loader.get_handle("alert.png"));
+    
+    alert.setCenter(windowWidth/2, windowHeight/2);
+    alert.hide()
+    alert.deactivate()
+    alert.updateSelf = function(){
+      if(this.accTime > 500){
+        this.setCenter(windowWidth/2 + Math.random()*5, windowHeight/2+Math.random()*5);
+      }
+    }
 
-    const FloatWoodInitX  = windowWidth*0.4
+    const FloatWoodInitX  = windowWidth*0.35
     float_wood.setTranslate(FloatWoodInitX, waterLevelAvg-float_wood.drawnSize[1]*0.3);
     float_wood.setAlpha(0)
     float_wood.hide()
@@ -42,9 +56,23 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
         this.alpha = 1
       }
     }
+
     background_scene.addChild(harbour);
     background_scene.addChild(birds)
+    background_scene.addChild(boat)
 
+    
+    boat.updateSelf = function(){
+      boat.setTranslate(windowWidth*1.6, waterLevelAvg-boat.drawnSize[1]*0.8)
+      if(this.accX > windowWidth){
+        this.setScale(0.2)
+      }
+      else{
+        const percent = (windowWidth - this.accX) / (windowWidth*0.4)
+
+        this.setScale(0.2 + percent*0.8)
+      }
+    }
     normal_cat.hide(); normal_cat.activate(false)
     normal_cat.setScale(0.27)
     normal_cat.setTranslate(0, windowHeight - normal_cat.drawnSize[1] - harbour.drawnSize[1]*0.8);
@@ -110,9 +138,9 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
           console.log("percent ", percent, " skewed_percent ", skewed_percent)
           const y_target = waterLevelAvg - float_wood.drawnSize[1]*0.2
           const y_init = harbour.drawnSize[1] + this.drawnSize[1]
-          const y_current = y_init + (y_target - y_init) * skewed_percent
+          const y_current = y_init + (y_target - y_init) * percent
           this.setTranslate(this.translation[0], y_current)
-        }else if(this.accX < windowWidth/2){
+        }else if(this.accX < windowWidth*0.35){
             // cat swim or float  to the middle of the screen
             if(scene.state.option == 1){
               // float speed = 2 pix / frame
@@ -136,6 +164,11 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
             this.translation[0] -= CatCrawlSpeed / this.accScale
             this.crawl()
           }
+        }
+        else{
+          // show alert message
+          alert.show()
+          alert.activate()
         }
       } 
     
@@ -381,5 +414,6 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     scene.addChild(backpack);
     scene.addChild(float_wood);
     scene.addChild(normal_cat);
+    scene.addChild(alert);
     return scene
   }
