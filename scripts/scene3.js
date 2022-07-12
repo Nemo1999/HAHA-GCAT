@@ -26,7 +26,22 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     const cloud_large = new SpriteNode(loader.get_handle("cloud-large.png"))
 
     const normal_cat = new SpriteNode(loader_cat.get_handle(["normal-cat.png", "normal-cat-1.png", "normal-cat-2.png", "normal-cat-3.png", "normal-cat-4.png", "normal-cat-blink.png"]));
+    const float_wood = new SpriteNode(loader.get_handle("float-wood.png"));
+    const waterLevelAvg = windowHeight * 0.7
 
+    const FloatWoodInitX  = windowWidth*0.4
+    float_wood.setTranslate(FloatWoodInitX, waterLevelAvg-float_wood.drawnSize[1]*0.3);
+    float_wood.setAlpha(0)
+    float_wood.hide()
+    float_wood.deactivate()
+    float_wood.updateSelf = function(){
+      if(this.accTime < 500){
+        this.alpha = this.accTime/500
+      }
+      else{
+        this.alpha = 1
+      }
+    }
     background_scene.addChild(harbour);
     background_scene.addChild(birds)
 
@@ -63,6 +78,14 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
       [0 , normal_cat.drawnSize[0] * 0.001],
       [0 , normal_cat.drawnSize[0] * 0.001]
     ]
+    // estimate the average crawling speed of cat using walk_cycle 
+    var CatCrawlSpeed = 0
+    for(let i = 0; i < normal_cat.state.walk_cycle.length; i++){
+      CatCrawlSpeed += normal_cat.state.walk_cycle[i][1]
+    }
+    CatCrawlSpeed /= normal_cat.state.walk_cycle.length
+    console.log("cat Crawl Speed", CatCrawlSpeed)
+
     normal_cat.crawl = function(){
       normal_cat.state.walk_cnt = (normal_cat.state.walk_cnt + 1) % normal_cat.state.walk_cycle.length
       const newFrame = normal_cat.state.walk_cycle[normal_cat.state.walk_cnt]
@@ -74,10 +97,47 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     }
 
     normal_cat.updateSelf = function(){
-
-      if(this.accTime > 500){
-        this.crawl()
-      }
+      if(this.accTime > 1000){
+        // cat crawl to the edge of the harbour
+        if(this.accX < harbour.drawnSize[0]){
+          this.crawl()
+        }
+        else if(this.accX < FloatWoodInitX + 50){
+          // cat jump onto floatwood or into water 
+          this.crawl()
+          const percent = (this.accX - harbour.drawnSize[1]) / (FloatWoodInitX - harbour.drawnSize[1])
+          const skewed_percent = percent ** 1.5
+          console.log("percent ", percent, " skewed_percent ", skewed_percent)
+          const y_target = waterLevelAvg - float_wood.drawnSize[1]*0.2
+          const y_init = harbour.drawnSize[1] + this.drawnSize[1]
+          const y_current = y_init + (y_target - y_init) * skewed_percent
+          this.setTranslate(this.translation[0], y_current)
+        }else if(this.accX < windowWidth/2){
+            // cat swim or float  to the middle of the screen
+            if(scene.state.option == 1){
+              // float speed = 2 pix / frame
+              this.translation[0] += 2
+              float_wood.translation[0] += 2
+            }
+            else{
+              // swim speed = crawling speed - 1 pix / frame
+              this.translation[0] -= 1 / this.accScale
+              this.crawl()
+            }
+        }else if(background_scene.translation[0] > -windowWidth){
+          // cat continue swinming until boat appear 
+          if(scene.state.option == 1){
+            // float speed = 2 pix / frame
+            background_scene.translation[0] -= 2
+          }
+          else{
+            // swim speed = crawling speed - 4 pix / frame
+            background_scene.translation[0] -= (CatCrawlSpeed - 1) / this.accScale
+            this.translation[0] -= CatCrawlSpeed / this.accScale
+            this.crawl()
+          }
+        }
+      } 
     
     }
 
@@ -103,6 +163,15 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
         cat_init.activate(false)
         normal_cat.activate()
         normal_cat.show()
+
+        if(scene.state.option == 1){
+          // option1 : use float wood
+            float_wood.show()
+            float_wood.activate()
+        }else{
+          // option2 : swim
+        }
+
       }
     }
 
@@ -120,6 +189,7 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
         option2.hide();option2.activate(false);
         backpack.show();
         backpack.activate();
+
         this.hide()
         this.activate(false);
       }
@@ -254,7 +324,7 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
         this.setTranslate(10*sin(this.accTime/600),10*cos(this.accTime/600))
     }
 
-    const waterLevelAvg = windowHeight * 0.7
+    
     water.drawSelf = function(){
       const water_col = color('#37CADE')
       water_col.setAlpha(0.48*255*this.accAlpha)
@@ -309,7 +379,7 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     //scene.addChild(harbour);
     scene.addChild(btn_next);
     scene.addChild(backpack);
-
+    scene.addChild(float_wood);
     scene.addChild(normal_cat);
     return scene
   }
