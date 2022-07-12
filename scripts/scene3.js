@@ -31,8 +31,57 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     background_scene.addChild(birds)
 
     normal_cat.hide(); normal_cat.activate(false)
-    normal_cat.setScale(0.3)
+    normal_cat.setScale(0.27)
     normal_cat.setTranslate(0, windowHeight - normal_cat.drawnSize[1] - harbour.drawnSize[1]*0.8);
+
+    // the counter cycling through the walk_cycle
+    normal_cat.state.walk_cnt = 0
+    // the frame number and the moving length between each frame
+    normal_cat.state.walk_cycle = [
+      [0 , normal_cat.drawnSize[0] * 0.01],
+      [0 , normal_cat.drawnSize[0] * 0.01],
+      [1 , normal_cat.drawnSize[0] * 0.01],
+      [1 , normal_cat.drawnSize[0] * 0.01],
+      [2 , normal_cat.drawnSize[0] * 0.01],
+      [2 , normal_cat.drawnSize[0] * 0.01],
+      [3 , normal_cat.drawnSize[0] * 0.01],
+      [3 , normal_cat.drawnSize[0] * 0.01],
+      [4 , normal_cat.drawnSize[0] * 0.01],
+      [4 , normal_cat.drawnSize[0] * 0.01],
+      [4 , normal_cat.drawnSize[0] * 0.01],
+      [4 , normal_cat.drawnSize[0] * 0.01],
+      [4 , normal_cat.drawnSize[0] * 0.01],
+      [4 , normal_cat.drawnSize[0] * 0.01],
+      [3 , normal_cat.drawnSize[0] * 0.001],
+      [3 , normal_cat.drawnSize[0] * 0.001],
+      [2 , normal_cat.drawnSize[0] * 0.001],
+      [2 , normal_cat.drawnSize[0] * 0.001],
+      [1 , normal_cat.drawnSize[0] * 0.001],
+      [1 , normal_cat.drawnSize[0] * 0.001],
+      [0 , normal_cat.drawnSize[0] * 0.001],
+      [0 , normal_cat.drawnSize[0] * 0.001],
+      [0 , normal_cat.drawnSize[0] * 0.001],
+      [0 , normal_cat.drawnSize[0] * 0.001]
+    ]
+    normal_cat.crawl = function(){
+      normal_cat.state.walk_cnt = (normal_cat.state.walk_cnt + 1) % normal_cat.state.walk_cycle.length
+      const newFrame = normal_cat.state.walk_cycle[normal_cat.state.walk_cnt]
+      const spriteIndex = newFrame[0]
+      const delX = newFrame[1]
+      const newX = normal_cat.translation[0] + delX / this.accScale
+      normal_cat.setTranslate(newX, normal_cat.translation[1])
+      normal_cat.setSpriteIndex(spriteIndex)
+    }
+
+    normal_cat.updateSelf = function(){
+
+      if(this.accTime > 500){
+        this.crawl()
+      }
+    
+    }
+
+
     cat_init.setTranslate(0, windowHeight - cat_init.drawnSize[1] - harbour.drawnSize[1]*0.8);
   
     backpack.hide()
@@ -44,7 +93,7 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
       const percent = this.accTime / 1000;
       const x = source[0] * (1 - percent) + target[0] * percent;
       const y = source[1] * (1 - percent) + target[1] * percent;
-      console.log(x,y)
+      //console.log(x,y)
       this.setTranslate(x, y);
       this.setRotate(10*PI *percent )
       if(this.accTime > 1000){

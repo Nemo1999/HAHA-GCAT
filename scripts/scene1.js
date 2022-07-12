@@ -18,7 +18,7 @@ function make_scene_11(loader, scene_name="scene1-1"){
     var btn_go = new SpriteNode(loader.get_handle(["btn-go.png","btn-go-hovered.png"]),false, true);
     var water = new Node("water")
     //helper components
-    const tk = mouseTracker();
+    //const tk = mouseTracker();
   
 
     // controll constants
@@ -54,7 +54,7 @@ function make_scene_11(loader, scene_name="scene1-1"){
     scene1.addChild(water);
     scene1.addChild(title);
     scene1.addChild(btn_go);
-    scene1.addChild(tk);
+    //scene1.addChild(tk);
 
     
     
