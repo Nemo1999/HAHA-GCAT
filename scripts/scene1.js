@@ -72,6 +72,8 @@ function make_scene_11(loader, scene_name="scene1-1"){
       cat_eye2.nextSprite();
       cat_antenna_right.setRotate(0.2,[0,100]);
       cat_antenna_left.setRotate(0.1,[0,100]);
+      cursor_pointer();
+
     }
     btn_go.onMouseExit = function(){
       btn_go.prevSprite();
@@ -79,8 +81,10 @@ function make_scene_11(loader, scene_name="scene1-1"){
       cat_eye2.prevSprite();
       cat_antenna_left.setRotate(0);
       cat_antenna_right.setRotate(0);
+      cursor_default();
     }
     btn_go.onMouseClick = function(){
+      cursor_default()
       console.log("go to scene 1-2")
       PubSub.publish("scene1-2","reload")
       scene1.unload()
@@ -260,6 +264,18 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
     scroll_handle.setTranslate(windowWidth*0.68, this.translation[1])
   }
   
+  scroll_handle.onMouseEnter = function(){
+    cursor_pointer()
+  }
+
+  scroll_handle.onMouseExit = function(){
+    if(! scroll_handle.isDragging){
+      cursor_default()
+    }
+  }
+  scroll_handle.onMouseDragEnd = function(){
+    cursor_default()
+  }
   scroll_handle.onMousePress = function(){
     this.state.pressedPos = this.translation
   }
@@ -325,18 +341,29 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
   agreebox.hide();
   agreebox.deactivate();
 
+  agreebox.onMouseEnter = function(){
+    cursor_pointer()
+  }
+  agreebox.onMouseExit = function(){
+    cursor_default()
+  }
   agreebox.onMouseClick = function(){
     this.nextSprite()
+    
   }
 
   btn_start.onMouseEnter = function(){
     this.nextSprite()
+    cursor_pointer();
   }
   btn_start.onMouseExit = function(){
     this.prevSprite()
+    cursor_default();
   }
   btn_start.onMouseClick = function(){
+    
     if(agreebox.spriteIndex == 1){
+      cursor_default()
       PubSub.publish("scene2-1", "reload")
       console.log("unloading scene1-2")
       scene2.unload();
