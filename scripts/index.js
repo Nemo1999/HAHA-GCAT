@@ -8,7 +8,9 @@ function preload(){
 }
 
 async function setup() {
+
   cv = createCanvas(windowWidth, windowHeight);
+  cv.position(0,0)
   rectMode(CENTER)
   textSize(32);
   text('Loading', windowWidth/2, windowHeight/2);
@@ -35,16 +37,16 @@ async function setup() {
   **/
 
   // Cover Scene
-  scene11 = make_scene_11(loader1, "scene1-1")
+  const  scene11 = make_scene_11(loader1, "scene1-1")
   // User-Agree-Box scene
-  scene12 = make_scene_12(loader1, loader_buttons ,"scene1-2")
+  const  scene12 = make_scene_12(loader1, loader_buttons ,"scene1-2")
 
-  scene21 = make_scene_21(loader2, "scene2-1")
-  scene22 = make_scene_22(loader2, "scene2-2")
-  scene23 = make_scene_23(loader2, "scene2-3")
-  scene24 = make_scene_24(loader2, "scene2-4")
+  const  scene21 = make_scene_21(loader2, "scene2-1")
+  const scene22 = make_scene_22(loader2, "scene2-2")
+  const  scene23 = make_scene_23(loader2, "scene2-3")
+  const  scene24 = make_scene_24(loader2, "scene2-4")
 
-  scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
+  const scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
 
   // add scenes to scene manager
   sm.addScene(scene11);
@@ -56,8 +58,8 @@ async function setup() {
   sm.addScene(scene31);
   
   // jump to specific page using url search parameter
-  url = new URL(window.location.href)
-  p = url.searchParams.get("page")
+  let url = new URL(window.location.href)
+  let p = url.searchParams.get("page")
   console.log(url,p)
   if(p){
     PubSub.publish(p,"reload")
@@ -65,12 +67,22 @@ async function setup() {
   else{
     // activate scene1
     PubSub.publish("scene1-1","reload")
+
+
+ 
   }
 
 
   /* activate and show are defined in reloadSelf callback
   PubSub.publish("scene1", "activate");
   PubSub.publish("scene1", "show");
+  */
+
+
+  //test textNode
+  /*
+  const textN  = textNode("hellotextNode \nffffffffffffffffffffffffffffffffffff\nffffffffffffffffffffffffffffffffffffff", windowWidth/2, windowHeight/2, 50)
+  console.log(textN)
   */
   return 
 }

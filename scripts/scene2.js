@@ -91,8 +91,16 @@ function make_scene_21(loader, scene_name = "scene2-1"){
         this.setTranslate(windowWidth*((0.5-0.1)*this.accTime/7000+0.1),windowHeight*0.65)
       }
     }
-  
-  
+    
+    textNode = new TextNode("你是一隻喜歡到處旅遊的綠毛蟲，世界各地都有你的足跡。", true, true)
+    textNode.onMouseEnter = function(){
+      console.log("enter text node!!")
+    }
+    textNode.onMouseExit = function(){
+      console.log("exit text node!!")
+    }
+    textNode.setTranslate(windowWidth*0.25, windowHeight*0.35)
+
     cloud.addChild(cloud_small)
     cloud.addChild(cloud_medium)
     cloud.addChild(cloud_large)
@@ -101,9 +109,10 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     scene.addChild(cloud)
     scene.addChild(grass_left);
     scene.addChild(grass_right);
-    scene.addChild(text)
+    //scene.addChild(text)
     scene.addChild(rock);
     scene.addChild(cat)
+    scene.addChild(textNode)
     return scene
   }
   
