@@ -45,6 +45,7 @@ async function setup() {
   scene24 = make_scene_24(loader2, "scene2-4")
 
   scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
+  scene32 = make_scene_32(loader3, "scene3-2")
 
   // add scenes to scene manager
   sm.addScene(scene11);
@@ -54,6 +55,7 @@ async function setup() {
   sm.addScene(scene23);
   sm.addScene(scene24);
   sm.addScene(scene31);
+  sm.addScene(scene32);
   
   // jump to specific page using url search parameter
   url = new URL(window.location.href)
