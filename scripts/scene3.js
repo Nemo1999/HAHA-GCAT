@@ -417,3 +417,50 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     scene.addChild(alert);
     return scene
   }
+
+  function make_scene_32(loader, name="scene3-2"){
+    const scene = new Scene(name)
+    const cat = new SpriteNode(loader.get_handle("cat-init.png"));
+    
+    const cloud_small = new SpriteNode(loader.get_handle("cloud-small.png"))
+    const cloud_medium = new SpriteNode(loader.get_handle("cloud-medium.png"))
+    const cloud_large = new SpriteNode(loader.get_handle("cloud-large.png"))
+
+    const cloud = new Node("clouds", false)
+
+    cloud.addChild(cloud_small);
+    cloud.addChild(cloud_medium);
+    cloud.addChild(cloud_large);
+
+
+
+    //cat.setTranslate(windowWidth*0.5, windowHeight*0.5);
+    //cat.setTranslate(windowWidth*0.5 - cat.size[0]/2, windowHeight*0.5-cat.size[1]/2);
+    
+    cat.setCenter(windowWidth*0.5, windowHeight*0.5);
+
+    cat.updateSelf = function(){
+      this.setCenter(windowWidth*0.5, windowHeight*0.5)
+    }
+
+    cloud.setTranslate(windowWidth*0.1, windowHeight*0.2);
+    cloud.setScale(1.5)
+
+    
+
+    cloud_small.setTranslate(0,0)
+    cloud_medium.updateSelf = function(){
+      this.setDrawnSize(100,100)
+    }
+    cloud_medium.setTranslate(150,0)
+    cloud_large.setTranslate(600,0)
+
+    scene.reloadSelf = function(){
+      this.activate()
+      this.show()
+    }
+
+    scene.addChild(cat);
+    scene.addChild(cloud);
+    return scene 
+  }
