@@ -434,6 +434,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     const coconut3 = new SpriteNode(loader.get_handle("coconut.png"));
     
     const text_24 = new TextNode("想辦法過河，前往偶布吉島吧！");
+    //const text_24 = new TextNode("abcd");
 
     scene.reloadSelf = function(){
       this.activate()
@@ -463,7 +464,8 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     }
     
     text_24.setTranslate(windowWidth*0.5 - text_24.drawnSize[0]/2, windowHeight*0.25 - text_24.drawnSize[1]/2)
-    
+      
+
     cat_cheer.updateSelf = function(){
       this.setTranslate(windowWidth*0.4, pulse(windowHeight-this.drawnSize[1]-island_cheer.drawnSize[1]+20, windowHeight*0.3, 1000)(this.accTime))
     }
