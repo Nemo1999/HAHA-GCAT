@@ -92,7 +92,7 @@ function make_scene_21(loader, scene_name = "scene2-1"){
       }
     }
     
-    textNode = new TextNode("你是一隻喜歡到處旅遊的綠毛蟲，世界各地都有你的足跡。", true, true)
+    textNode = new TextNode("你是一隻喜歡到處旅遊的綠毛蟲，世界各地都有你的足跡。", true)
     textNode.onMouseEnter = function(){
       console.log("enter text node!!")
     }

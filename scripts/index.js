@@ -11,6 +11,7 @@ async function setup() {
 
   cv = createCanvas(windowWidth, windowHeight);
   cv.position(0,0)
+  cv.elt.style.zIndex = 1000;
   rectMode(CENTER)
   textSize(32);
   text('Loading', windowWidth/2, windowHeight/2);
