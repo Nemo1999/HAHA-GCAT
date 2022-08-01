@@ -131,10 +131,12 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     const bird2 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
     const bird3 = new SpriteNode(loader.get_handle(["bird.png","bird-flap.png"]))
     const island_flag = new Node("island_and_flag",false)
-    const text_22 = new SpriteNode(loader.get_handle("text-2-2.png"))
+    //const text_22 = new SpriteNode(loader.get_handle("text-2-2.png"))
     
+    const text_22 = new TextNode("你的下個目的地是偶布吉島，\n然而在你眼前還有一條長長的河流。")
     text_22.setTranslate(windowWidth*0.55, windowHeight*0.20)
-  
+    
+
     scene.reloadSelf = function(){
       this.alpha = 0.0
       this.state.invokeNextScene = false
@@ -287,11 +289,14 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     const fish_small = new SpriteNode(loader.get_handle("fish-small.png"));
     const fish_medium = new SpriteNode(loader.get_handle("fish-medium.png"));
     const fish_large = new SpriteNode(loader.get_handle("fish-large.png"));
-    const text_231 = new SpriteNode(loader.get_handle("text-2-3-1.png"));
-    const text_232 = new SpriteNode(loader.get_handle("text-2-3-2.png"));
+    //const text_231 = new SpriteNode(loader.get_handle("text-2-3-1.png"));
+    //const text_232 = new SpriteNode(loader.get_handle("text-2-3-2.png"));
     const cat_sweat = new SpriteNode(loader.get_handle(["cat-sweat-1.png", "cat-sweat-2.png"]));
     const cat_boat = new SpriteNode(loader.get_handle("cat-boat.png"));
-  
+    
+    const text_231 = new TextNode("不管是努力用小小的身體游泳")
+    const text_232 = new TextNode("還是收集木板來過河")
+
     scene.reloadSelf = function(){
       this.activate()
       this.show()
@@ -421,13 +426,15 @@ function make_scene_21(loader, scene_name = "scene2-1"){
     const tree_light_green = new SpriteNode(loader.get_handle("tree-light-green.png"));
     const tree_brown_2 = new SpriteNode(loader.get_handle("tree-brown.png"));
     const island_cheer = new SpriteNode(loader.get_handle("island-cheer.png"));
-    const text_24 = new SpriteNode(loader.get_handle("text-2-4.png"));
+    //const text_24 = new SpriteNode(loader.get_handle("text-2-4.png"));
     const flag_cheer = new SpriteNode(loader.get_handle("flag-cheer.png"));
     const cat_cheer = new SpriteNode(loader.get_handle("cat-cheer.png"));
     const coconut1 = new SpriteNode(loader.get_handle("coconut.png"));
     const coconut2 = new SpriteNode(loader.get_handle("coconut.png"));
     const coconut3 = new SpriteNode(loader.get_handle("coconut.png"));
     
+    const text_24 = new TextNode("想辦法過河，前往偶布吉島吧！");
+
     scene.reloadSelf = function(){
       this.activate()
       this.show()
@@ -455,8 +462,8 @@ function make_scene_21(loader, scene_name = "scene2-1"){
       }
     }
     
-    text_24.setCenter(windowWidth*0.5, windowHeight*0.25)
-
+    text_24.setTranslate(windowWidth*0.5 - text_24.drawnSize[0]/2, windowHeight*0.25 - text_24.drawnSize[1]/2)
+    
     cat_cheer.updateSelf = function(){
       this.setTranslate(windowWidth*0.4, pulse(windowHeight-this.drawnSize[1]-island_cheer.drawnSize[1]+20, windowHeight*0.3, 1000)(this.accTime))
     }
