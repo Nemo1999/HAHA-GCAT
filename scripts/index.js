@@ -46,11 +46,12 @@ async function setup() {
   const scene22 = make_scene_22(loader2, "scene2-2")
   const  scene23 = make_scene_23(loader2, "scene2-3")
   const  scene24 = make_scene_24(loader2, "scene2-4")
-
-
-
+  
   const scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
   const scene32 = make_scene_32(loader3, "scene3-2")
+
+  const scene40 = make_scene_40(loader_cats)
+
 
   // add scenes to scene manager
   sm.addScene(scene11);
@@ -61,6 +62,7 @@ async function setup() {
   sm.addScene(scene24);
   sm.addScene(scene31);
   sm.addScene(scene32);
+  sm.addScene(scene40);
   
   // jump to specific page using url search parameter
   let url = new URL(window.location.href)
