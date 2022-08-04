@@ -1,9 +1,20 @@
 function make_scene_40(loader_cat, scene_name='metaverse-trans') {
     scene = new Scene(scene_name)
+    const duration = 1400      // the scene duration in millisecond
+    const delay_time = 400     // the delay time before the caterpillar appears
+    const deg_seq = [90, 61.04, 30.56, 15, 20, 30, 45, 70, 90]    // the caterpillar's rotation sequence
+    const lerp_period = (duration-delay_time)/(deg_seq.length - 1)      // the rotation interpolation period between each two steps
 
     scene.reloadSelf = function(){
         this.activate()
         this.show()
+    }
+
+    scene.updateSelf = function(deltaT) {
+        if(this.accTime > duration+100) {
+            this.deactivate()
+            this.hide()
+        }
     }
 
     // background
@@ -21,16 +32,29 @@ function make_scene_40(loader_cat, scene_name='metaverse-trans') {
             "normal-cat-3.png", 
             "normal-cat-4.png", 
             "normal-cat-blink.png"
-    ]));
+    ]), 6.8)
 
     normal_cat.setScale(0.27)
-    
+    normal_cat.setTranslate(560, -540)
+    normal_cat.setRotate(radians(deg_seq[0]))
 
+    let deg_ckpt = 1     // the next caterpillar's rotation degree checkpoint
     normal_cat.updateSelf = function(deltaT) {
-        // TODO: update rotation
+        if(this.accTime >= delay_time && this.accTime < duration) {
+            let timeline = this.accTime - delay_time
+            if(timeline >= lerp_period * deg_ckpt) {
+                deg_ckpt++     // update the next checkpoint
+            }
+            
+            if(deg_ckpt < deg_seq.length) {
+                const mid = (timeline - lerp_period * (deg_ckpt-1)) / lerp_period
+                const theta = radians(lerp(deg_seq[deg_ckpt-1], deg_seq[deg_ckpt], mid))
+                this.setRotate(theta)
+            }
+        }
 
-
-        this.crawl(deltaT)
+        // the caterpillar will go forward in its direction
+        this.crawl(deltaT, false)
     }
 
     scene.addChild(bg)
