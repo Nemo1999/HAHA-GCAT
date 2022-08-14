@@ -1,6 +1,7 @@
 
 
 var sm;
+const cvAspectRatio = 680/1440;   // the default canvas aspect ratio
 
 function preload(){
   // create scene manager
@@ -9,8 +10,8 @@ function preload(){
 
 async function setup() {
 
-  cv = createCanvas(windowWidth, windowHeight);
-  cv.position(0,0)
+  cv = createCanvas(1440, 680);
+  resetCanvasSize();
   cv.elt.style.zIndex = 1000;
   rectMode(CENTER)
   textSize(32);
@@ -101,8 +102,24 @@ function draw(){
   sm.render()
 }
 
+/**
+ * Reset the canvas size with respect to the window size.
+ */
+function resetCanvasSize() {
+  let winAspectRatio = windowHeight / windowWidth;
+  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，計算視窗寬及畫布寬的比例：反之則計算高比例
+  let scale = winAspectRatio > cvAspectRatio? windowWidth / width : windowHeight / height;
+  resizeCanvas(width * scale, height * scale);
+  sm.scenes.forEach(scene => {
+    scene.setScale(scale);
+  })
+}
+
+/**
+ * This will be called on window size changed.
+ */
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resetCanvasSize();
 }
 
 function mousePressed(){
