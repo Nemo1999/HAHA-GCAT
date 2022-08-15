@@ -1,7 +1,8 @@
 
 
 var sm;
-const cvAspectRatio = 680/1440;   // the default canvas aspect ratio
+const DEFAULT_WIDTH = 1440, DEFAULT_HEIGHT = 680;
+const cvAspectRatio = DEFAULT_HEIGHT/DEFAULT_WIDTH;
 
 function preload(){
   // create scene manager
@@ -10,8 +11,7 @@ function preload(){
 
 async function setup() {
 
-  cv = createCanvas(1440, 680);
-  resetCanvasSize();
+  cv = createCanvas(DEFAULT_WIDTH, DEFAULT_HEIGHT);
   cv.elt.style.zIndex = 1000;
   rectMode(CENTER)
   textSize(32);
@@ -64,6 +64,8 @@ async function setup() {
   sm.addScene(scene31);
   sm.addScene(scene32);
   sm.addScene(scene40);
+
+  resetCanvasSize();
   
   // jump to specific page using url search parameter
   let url = new URL(window.location.href)
@@ -79,7 +81,6 @@ async function setup() {
 
  
   }
-
 
   /* activate and show are defined in reloadSelf callback
   PubSub.publish("scene1", "activate");
@@ -107,12 +108,13 @@ function draw(){
  */
 function resetCanvasSize() {
   let winAspectRatio = windowHeight / windowWidth;
-  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，計算視窗寬及畫布寬的比例：反之則計算高比例
-  let scale = winAspectRatio > cvAspectRatio? windowWidth / width : windowHeight / height;
-  resizeCanvas(width * scale, height * scale);
+  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，以視窗寬及畫布寬的比例作為縮放比：反之則計算高比例
+  let scale = winAspectRatio > cvAspectRatio? windowWidth / DEFAULT_WIDTH : windowHeight / DEFAULT_HEIGHT;
+  resizeCanvas(DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale);
   sm.scenes.forEach(scene => {
     scene.setScale(scale);
-  })
+    console.log(scene.scale);
+  });
 }
 
 /**
