@@ -1,6 +1,8 @@
 
 
 var sm;
+const DEFAULT_WIDTH = 1440, DEFAULT_HEIGHT = 680;
+const cvAspectRatio = DEFAULT_HEIGHT/DEFAULT_WIDTH;
 
 function preload(){
   // create scene manager
@@ -9,8 +11,7 @@ function preload(){
 
 async function setup() {
 
-  cv = createCanvas(windowWidth, windowHeight);
-  cv.position(0,0)
+  cv = createCanvas(DEFAULT_WIDTH, DEFAULT_HEIGHT);
   cv.elt.style.zIndex = 1000;
   rectMode(CENTER)
   textSize(32);
@@ -46,11 +47,12 @@ async function setup() {
   const scene22 = make_scene_22(loader2, "scene2-2")
   const  scene23 = make_scene_23(loader2, "scene2-3")
   const  scene24 = make_scene_24(loader2, "scene2-4")
-
-
-
+  
   const scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
   const scene32 = make_scene_32(loader3, "scene3-2")
+
+  const scene40 = make_scene_40(loader_cats)
+
 
   // add scenes to scene manager
   sm.addScene(scene11);
@@ -61,6 +63,9 @@ async function setup() {
   sm.addScene(scene24);
   sm.addScene(scene31);
   sm.addScene(scene32);
+  sm.addScene(scene40);
+
+  resetCanvasSize();
   
   // jump to specific page using url search parameter
   let url = new URL(window.location.href)
@@ -76,7 +81,6 @@ async function setup() {
 
  
   }
-
 
   /* activate and show are defined in reloadSelf callback
   PubSub.publish("scene1", "activate");
@@ -99,8 +103,25 @@ function draw(){
   sm.render()
 }
 
+/**
+ * Reset the canvas size with respect to the window size.
+ */
+function resetCanvasSize() {
+  let winAspectRatio = windowHeight / windowWidth;
+  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，以視窗寬及畫布寬的比例作為縮放比：反之則計算高比例
+  let scale = winAspectRatio > cvAspectRatio? windowWidth / DEFAULT_WIDTH : windowHeight / DEFAULT_HEIGHT;
+  resizeCanvas(DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale);
+  sm.scenes.forEach(scene => {
+    scene.setScale(scale);
+    console.log(scene.scale);
+  });
+}
+
+/**
+ * This will be called on window size changed.
+ */
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resetCanvasSize();
 }
 
 function mousePressed(){
