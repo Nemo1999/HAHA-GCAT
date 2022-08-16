@@ -113,7 +113,6 @@ function resetCanvasSize() {
   resizeCanvas(DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale);
   sm.scenes.forEach(scene => {
     scene.setScale(scale);
-    console.log(scene.scale);
   });
 }
 
