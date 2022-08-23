@@ -1,8 +1,6 @@
 
 
 var sm;
-const DEFAULT_WIDTH = 1440, DEFAULT_HEIGHT = 680;
-const cvAspectRatio = DEFAULT_HEIGHT/DEFAULT_WIDTH;
 
 function preload(){
   // create scene manager
