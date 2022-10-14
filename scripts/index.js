@@ -1,8 +1,6 @@
 
 
 var sm;
-const DEFAULT_WIDTH = 1440, DEFAULT_HEIGHT = 680;
-const cvAspectRatio = DEFAULT_HEIGHT/DEFAULT_WIDTH;
 
 function preload(){
   // create scene manager
@@ -113,7 +111,6 @@ function resetCanvasSize() {
   resizeCanvas(DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale);
   sm.scenes.forEach(scene => {
     scene.setScale(scale);
-    console.log(scene.scale);
   });
 }
 

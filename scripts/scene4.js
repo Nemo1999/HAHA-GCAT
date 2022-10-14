@@ -2,11 +2,11 @@ function make_scene_40(loader_cat, scene_name='metaverse-trans') {
     // scene
     scene = new Scene(scene_name)
     const duration = 1400      // the scene duration in millisecond
-    const delay_time = 400     // the delay time before the caterpillar appears
+    const delay_time = 400     // the delay time (ms) before the caterpillar appears
     
     // caterpillar
     const speed = 6.8
-    const deg_seq = [90, 61.04, 30.56, 15, 20, 30, 45, 70, 90]    // the caterpillar's rotation sequence
+    const deg_seq = [90, 60, 30, 20, 25, 40, 60, 80, 90]    // the caterpillar's rotation sequence
     const lerp_period = (duration-delay_time)/(deg_seq.length - 1)      // the rotation interpolation period between each two steps
 
     scene.reloadSelf = function(){
@@ -38,8 +38,8 @@ function make_scene_40(loader_cat, scene_name='metaverse-trans') {
             "normal-cat-blink.png"
     ]))
 
-    normal_cat.setScale(0.27)
-    normal_cat.setTranslate(560, -540)
+    normal_cat.setScale(0.25)
+    normal_cat.setTranslate(420, -640)
     normal_cat.setRotate(radians(deg_seq[0]))
 
     let deg_ckpt = 1     // the next caterpillar's rotation degree checkpoint
