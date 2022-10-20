@@ -37,14 +37,14 @@ async function setup() {
   **/
 
   // Cover Scene
-  const  scene11 = make_scene_11(loader1, "scene1-1")
+  const scene11 = make_scene_11(loader1, "scene1-1")
   // User-Agree-Box scene
-  const  scene12 = make_scene_12(loader1, loader_buttons ,"scene1-2")
+  const scene12 = make_scene_12(loader1, loader_buttons ,"scene1-2")
 
-  const  scene21 = make_scene_21(loader2, "scene2-1")
+  const scene21 = make_scene_21(loader2, "scene2-1")
   const scene22 = make_scene_22(loader2, "scene2-2")
-  const  scene23 = make_scene_23(loader2, "scene2-3")
-  const  scene24 = make_scene_24(loader2, "scene2-4")
+  const scene23 = make_scene_23(loader2, "scene2-3")
+  const scene24 = make_scene_24(loader2, "scene2-4")
   
   const scene31 = make_scene_31(loader3, loader_cats, loader_buttons , "scene3-1")
   const scene32 = make_scene_32(loader3, "scene3-2")
