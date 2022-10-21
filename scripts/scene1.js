@@ -23,8 +23,6 @@ function make_scene_11(loader, scene_name="scene1-1"){
 
     // controll constants
     const waterLevelAvg = 338;
-    const ratio_catBody_windowWidth = 0.7
-    const ratio_catTail_catBody = 670/cat_body.size[0]
     
     // scene1
     scene1.reloadSelf = function(){
