@@ -22,10 +22,7 @@ function make_scene_11(loader, scene_name="scene1-1"){
   
 
     // controll constants
-    const waterLevelAvg = windowHeight * 0.7
-    const ratio_catBody_windowWidth = 0.7
-    const ratio_catHeightAboveWater_catHeight = 0.7
-    const ratio_catTail_catBody = 670/cat_body.size[0]
+    const waterLevelAvg = 338;
     
     // scene1
     scene1.reloadSelf = function(){
@@ -56,15 +53,13 @@ function make_scene_11(loader, scene_name="scene1-1"){
     scene1.addChild(btn_go);
     //scene1.addChild(tk);
 
-    
-    
-    title.updateSelf = function(){
-      title.setCenter((windowWidth)/2, windowHeight*0.35);
-    }
-    btn_go.updateSelf = function(){
-      this.setCenter(windowWidth/2, windowHeight*0.7);
-    }
-    
+    // title
+    rectMode(CENTER);
+    title.setScale(0.7);
+    title.setTranslate(488.1, 133.14);
+
+    // button
+    btn_go.setTranslate(663, 495);
     
     btn_go.onMouseEnter = function(){
       btn_go.nextSprite();
@@ -98,22 +93,30 @@ function make_scene_11(loader, scene_name="scene1-1"){
     cat_face.addChild(cat_mouth);
     cat_face.addChild(cat_antenna_left);
     cat_face.addChild(cat_antenna_right);
+
+    cat.setTranslate(0, 214.48);
     
+    cat_body.setTranslate(-478.43, 0);
+    cat_body.setScale(0.7);   // To prevent the parent scale from affecting the children's global position. We set the children's scale rather than the parent scale.  
     cat_body.updateSelf = function(){
-      var float_height = (water.state.drift11 + water.state.drift12)/2 / this.accScale;
+      var float_height = (water.state.drift11 + water.state.drift12)/2 / this.scale;
       var float_theta = atan2(water.state.drift12-water.state.drift11,530);
-      this.setTranslate(0, float_height/2);
-      this.setRotate(float_theta/2,[750,100]);
+      this.setTranslate(this.translation[0], float_height/2);
+      this.setRotate(float_theta,[750,100]);
     }
 
+    cat_tail.setTranslate(964.08, 0);
+    cat_tail.setScale(0.7);   // To prevent the parent scale from affecting the children's global position. We set the children's scale rather than the parent scale. 
     cat_tail.updateSelf = function(){
-      var w = windowWidth / this.accScale
-      var float_height = (water.state.drift21 + water.state.drift22)/2 / this.accScale;
+      var float_height = (water.state.drift21 + water.state.drift22)/2 / this.scale;
       var float_theta = atan2(water.state.drift22-water.state.drift21,530);
-      this.setTranslate(w, float_height/2);
-      this.setRotate(float_theta/2, [250,100]);
+      this.setTranslate(this.translation[0], float_height/2);
+      this.setRotate(float_theta, [250,100]);
     }
+
     cat_face.setTranslate(1000,110);
+    
+    // update eyes-cursor tracing
     cat_eye1.updateSelf = function(){
       const mouseDiff = [mouseX - (this.accX+24), mouseY - (this.accY+3)];
       const th = atan2(mouseDiff[1], mouseDiff[0]);
@@ -141,36 +144,30 @@ function make_scene_11(loader, scene_name="scene1-1"){
     cat_mouth.setTranslate(60,96);
     cat_antenna_right.setTranslate(120,-200)
     cat_antenna_left.setTranslate(70,-220)
-
-    cat.updateSelf = function(){
-        this.setScale(windowWidth*ratio_catBody_windowWidth / cat_body.size[0]);
-        this.setTranslate(-cat_body.size[0]*this.accScale*ratio_catTail_catBody,
-           windowHeight*0.7-cat_body.size[1]*this.accScale*ratio_catHeightAboveWater_catHeight);
-        //console.log(cat)
-    }
     
     water.state.drift11 = 0;
     water.state.drift12 = 0;
     water.state.drift21 = 0;
     water.state.drift22 = 0;
     water.drawSelf = function(){
-      const water_col = color('#37CADE')
-      water_col.setAlpha(0.48*255*this.accAlpha)
-      const catLength = windowWidth * ratio_catBody_windowWidth
-      const bodyStart = 0
-      const bodyEnd = catLength * (1-ratio_catTail_catBody)
-      const tailStart = windowWidth - catLength * ratio_catTail_catBody
-      const tailEnd = windowWidth - 10
+      const water_col = color('#37CADE');
+      water_col.setAlpha(0.48*255*this.accAlpha);
+
+      const bodyStart = 0;
+      const bodyEnd = cat_body.translation[0] + cat_body.drawnSize[0];
+      const tailStart = cat_tail.translation[0];
+      const tailEnd = DEFAULT_WIDTH - 10;
+
       const waterStep = 10
       fill(water_col);
       noStroke();
       beginShape();
-      for(let i = 0; i < windowWidth; i+=waterStep){
+      for(let i = 0; i <= DEFAULT_WIDTH; i+=waterStep){
         let water_level = 0
         water_level += cos(this.accTime/700+i/65)
         water_level += cos(-this.accTime/300+i/150)*10
-        water_level += sin(this.accTime/2000+i/400)*30
-        water_level += sin((i-mouseX+ this.accTime/200)/200)*50 * exp(-(abs(mouseX - i))/windowWidth*3)
+        water_level += sin(this.accTime/2000+i/400)*10
+        water_level += sin((i-mouseX+ this.accTime/200)/200)*50 * exp(-(abs(mouseX - i))/DEFAULT_WIDTH)
         vertex(i, water_level + waterLevelAvg);
         // store water level value for cat body drifting
         if(i>=bodyStart && i <bodyStart+waterStep){
@@ -186,9 +183,9 @@ function make_scene_11(loader, scene_name="scene1-1"){
           this.state.drift22 = water_level;
         }
       }
-      vertex(windowWidth, waterLevelAvg)
-      vertex(windowWidth, windowHeight);
-      vertex(0, windowHeight);
+      vertex(DEFAULT_WIDTH, waterLevelAvg);
+      vertex(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+      vertex(0, DEFAULT_HEIGHT);
       endShape(CLOSE);
       
     }
@@ -208,20 +205,18 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
   //const tk = mouseTracker(sm);
   const btn_start = new SpriteNode(loader_buttons.get_handle(["btn-start.png", "btn-start-hovered.png"]),false, true);
   const agreebox = new SpriteNode(loader_buttons.get_handle(["agreebox.png","agreebox-checked.png"]),false, true);
-  const text = new SizeNode("text box", windowWidth*0.5, windowHeight*0.55, false, true)
+  const text = new SizeNode("text box", 506, 416, false, true)
   const leaf_scatter = new Node("leaf-scatter", false)
   const leaf_nodes = []
   const leaf_names = ["leaf-gray.png", "leaf-green.png", "leaf-light-green.png", "leaf-texture-gray.png", "leaf-texture-light-green.png"]
   for(i=0;i<leafNum;i++){
     leaf_nodes.push(new SpriteNode(loader.get_handle(leaf_names[i%leaf_names.length])))
-    leaf_nodes[i].setTranslate(int(random(windowWidth)), int(random(windowHeight)))
+    leaf_nodes[i].setTranslate(int(random(DEFAULT_WIDTH)), int(random(DEFAULT_HEIGHT)))
     leaf_nodes[i].setRotate(random(Math.PI*2))
     leaf_scatter.addChild(leaf_nodes[i])
   }
   const scroll_handle = new SpriteNode(loader.get_handle("scroll-bar-handle.png"), false, true)
   const scroll_bar = new SpriteNode(loader.get_handle("scroll-bar.png"),false, false)
-
-
 
   // define text node
   text.state.element = document.getElementById("user-agreement");
@@ -229,11 +224,7 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
     // show the text element
     text.state.element.style.display = "block";
   }
-  text.updateSelf = function(){
-    text.state.ratio_offset_scroll = text.state.element.offsetHeight / text.state.element.scrollHeight 
-    this.fitDrawnSize(windowWidth*0.36, windowHeight*0.55);
-    this.setTranslate(windowWidth/2-this.drawnSize[0]/2, windowHeight/2-this.drawnSize[1]/2);
-  }
+
   text.unloadSelf = function(){
     console.log("unload text Node")
     text.state.element.style.display = "none"
@@ -248,22 +239,14 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
     const maxY = scroll_bar.translation[1] + scroll_bar.size[1] - scroll_handle.size[1]
     const minY = scroll_bar.translation[1]
     const newY = minY + (maxY-minY) * textdiv.scrollTop  / ((text.state.element.scrollHeight - text.state.element.offsetHeight))
-    scroll_handle.setTranslate(this.translation[0], newY)
+    scroll_handle.setTranslate(scroll_handle.translation[0], newY)
   } 
   
 
-  
-  scroll_bar.updateSelf = function(){
-    scroll_bar.setTranslate(windowWidth*0.68, windowHeight*0.22)
-  }
-  
+  scroll_bar.setTranslate(1023, 219);
+  scroll_bar.setSize(12, 362)
 
-  scroll_handle.setTranslate(windowWidth*0.68, windowHeight * 0.22)
-  scroll_handle.updateSelf = function(){
-    scroll_handle.fitDrawnSize(scroll_bar.size[0], scroll_bar.size[1]*text.state.ratio_offset_scroll)
-    scroll_handle.setTranslate(windowWidth*0.68, this.translation[1])
-  }
-  
+  scroll_handle.setTranslate(1023, 219);
   scroll_handle.onMouseEnter = function(){
     cursor_pointer()
   }
@@ -279,24 +262,28 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
   scroll_handle.onMousePress = function(){
     this.state.pressedPos = this.translation
   }
-  scroll_handle.onMouseDrag = function(self, currentPoint, startPoint){
-    
-    const dY = currentPoint[1] - startPoint[1]
+  scroll_handle.onMouseDrag = function(event, currentPoint, startPoint){
+    const dY = event.movementY / this.parent.scale;
     const maxY = scroll_bar.translation[1] + scroll_bar.size[1] - scroll_handle.size[1]
     const minY = scroll_bar.translation[1]
-    const newY = constrain(this.state.pressedPos[1] + dY,minY, maxY)
+
+    console.log('dY :>> ', dY);
+    console.log('maxY :>> ', maxY);
+    console.log('minY :>> ', minY);
+
+    const newY = constrain(this.translation[1] + dY, minY, maxY)
     const scrollAmount = (newY - minY) / (maxY - minY) * (text.state.element.scrollHeight - text.state.element.offsetHeight)
     // scroll the text element
     text.state.element.scrollTop  = scrollAmount
     // update the visibility of agreebox based on the scroll position
     update_box_btn()
     // translate the scroll handle
-    this.setTranslate(this.state.pressedPos[0], newY)
+    this.setTranslate(this.translation[0], newY)
   }
 
   function update_box_btn(){
     const textdiv = text.state.element
-    const offset = 100
+    const offset = 10
     if(textdiv.scrollTop + offset>= textdiv.scrollHeight - textdiv.offsetHeight){
       console.log("scroll to the end")
       btn_start.show()
@@ -333,11 +320,11 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
 
   //scene2.addChild(tk);
   
-
-  btn_start.setCenter(windowWidth/2, windowHeight*0.6);
+ 
+  btn_start.setCenter(DEFAULT_WIDTH/2, DEFAULT_HEIGHT*0.6);
   btn_start.hide();
   btn_start.deactivate();
-  agreebox.setCenter(windowWidth/2, windowHeight*0.5);
+  agreebox.setCenter(DEFAULT_WIDTH/2, DEFAULT_HEIGHT*0.5);
   agreebox.hide();
   agreebox.deactivate();
 
@@ -370,13 +357,8 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
     }
   }
 
-  leaf_background.updateSelf = function(){
-    leaf_background.setCenter(windowWidth/2, windowHeight/2);
-    leaf_background.fitDrawnSize(windowWidth*0.6 ,windowHeight);
-  }
+  leaf_background.setTranslate(360.42, 0);
+  leaf_background.setScale(0.72);
 
-  bg.drawSelf = function(){
-    background(color("#FEFFD2"))
-  }
   return scene2;
 }
