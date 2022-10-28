@@ -49,12 +49,12 @@ function draw() {
  */
 function resetCanvasSize() {
   let winAspectRatio = windowHeight / windowWidth;
-  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，計算視窗寬及畫布寬的比例：反之則計算高比例
-  let scale = winAspectRatio > cvAspectRatio? windowWidth / width : windowHeight / height;
-  resizeCanvas(width * scale, height * scale);
+  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，以視窗寬及畫布寬的比例作為縮放比：反之則計算高比例
+  let scale = winAspectRatio > cvAspectRatio? windowWidth / DEFAULT_WIDTH : windowHeight / DEFAULT_HEIGHT;
+  resizeCanvas(DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale);
   sm.scenes.forEach(scene => {
     scene.setScale(scale);
-  })
+  });
 }
 
 /**
