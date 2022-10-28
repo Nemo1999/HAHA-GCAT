@@ -24,8 +24,8 @@ async function setup() {
   await Promise.all([loader1.load(), loader2.load(), loader3.load(), loader_buttons.load(), loader_cats.load()]);
 
   // add scenes to scene manager
-  const scene = t_font();
-  sm.addScene(scene);
+  sm.addScene(t_font_family());
+  sm.addScene(t_text_scaling());
   
   // jump to specific page using url search parameter
   let url = new URL(window.location.href);
