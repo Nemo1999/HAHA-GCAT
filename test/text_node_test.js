@@ -1,18 +1,18 @@
-function t_font(scene_name='text-node-font') {
+function t_font_family(scene_name='font_family') {
     const test_cases = [
         {
-            'font': 'Serif',
             'content': 'HAHA-GCAT 綠毛蟲要過河',
-            'font-size': 16,
-            'line-hieght': 1,
-            'node-size': 100
+            'style': {
+                'font-family': 'Serif',
+                'font-size': 16,
+            }
         },
         {
-            'font': 'Courier New',
             'content': 'HAHA-GCAT 綠毛蟲要過河',
-            'font-size': 16,
-            'line-height': 1.5,
-            'node-size': 100
+            'style': {
+                'font-family': 'Courier New',
+                'font-size': 16,
+            }
         }
     ];
 
@@ -31,7 +31,7 @@ function t_font(scene_name='text-node-font') {
     // };
 
     test_cases.forEach((p, i) => {
-        let text_node = new TextNode(p['content'], true, p['font'], p['font-size'], p['line-height'])
+        let text_node = new TextNode(p['content'], true, p['style'])
         text_node.setTranslate(100, 100*(i+1))
         scene.addChild(text_node)
     });
