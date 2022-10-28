@@ -1,8 +1,6 @@
 
 
 var sm;
-const DEFAULT_WIDTH = 1440, DEFAULT_HEIGHT = 680;
-const cvAspectRatio = DEFAULT_HEIGHT/DEFAULT_WIDTH;
 
 function preload(){
   // create scene manager
@@ -26,7 +24,7 @@ async function setup() {
   await Promise.all([loader1.load(), loader2.load(), loader3.load(), loader_buttons.load(), loader_cats.load()]);
 
   // add scenes to scene manager
-  const scene = t_local_scaling();
+  const scene = t_font();
   sm.addScene(scene);
   
   // jump to specific page using url search parameter
