@@ -15,6 +15,7 @@
       align-items: center;        /* vertical centered */
     }
   </style>
+  
   <script src="p5/p5.js"></script>
   <!-- <script src="../addons/p5.sound.js"></script> -->
   <script src="lib/config.js"></script>
@@ -36,22 +37,27 @@
 </head>
 
 <body>
-      <div id=p5-container></div>
+  <div id="container", width="100vh", height="100vh">
+    <div id=p5-container></div>
+  </div>   
 </body>
 
 <style>
+
+
   @font-face {
     font-family: openhuninn;
     src: url(assets/jf-openhuninn-1.1/jf-openhuninn-1.1.ttf);
   }
   #user-agreement{
     position: absolute;
-    margin: auto;
+    left: 0px;
+    top: 0px; 
     width: 36vw;
     height: 44vh;
     font-family:openhuninn;
-    font-size: 18px;
-    line-height: 32px;
+    font-size: 1.2vw;
+    line-height: 2vw;
     overflow: scroll;
     overflow: hidden;
     z-index: 2000;
