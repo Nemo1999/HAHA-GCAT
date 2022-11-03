@@ -449,9 +449,7 @@ function make_scene_31(loader, loader_cat, loader_buttons, scene_name = "scene3-
     
 
     cloud_small.setTranslate(0,0)
-    cloud_medium.updateSelf = function(){
-      this.setDrawnSize(100,100)
-    }
+
     cloud_medium.setTranslate(150,0)
     cloud_large.setTranslate(600,0)
 
