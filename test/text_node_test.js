@@ -35,6 +35,55 @@ function t_text_font(scene_name='text_font') {
     return scene;
 }
 
+function t_text_color(scene_name='text_color') {
+    const test_cases = [
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [0, 0, 0, 255],
+        },
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [0, 0, 0, 150],
+        },
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [0, 0, 0, 50],
+        },
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [125, 186, 255, 255],
+        }
+    ];
+
+    // scene
+    const scene = new Scene(scene_name);
+    
+    scene.reloadSelf = function() {
+        this.activate();
+        this.show();
+    };
+
+    test_cases.forEach((p, i) => {
+        let text_node = new TextNode('text'+i, p['content'], true);
+        text_node
+          .font(p['font'])
+          .fontSize(p['fontSize'])
+          .color(p['color']);
+        text_node.setTranslate(100, 60*(i+1));
+        scene.addChild(text_node);
+    });
+
+    return scene;
+}
+
 function t_text_scaling(scene_name='text_scaling') {
     const test_cases = [
         {

@@ -25,6 +25,7 @@ async function setup() {
 
   // add scenes to scene manager
   sm.addScene(t_text_font());
+  sm.addScene(t_text_color());
   sm.addScene(t_text_scaling());
   sm.addScene(t_render_blob());
   sm.addScene(t_text_show());
