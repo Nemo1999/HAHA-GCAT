@@ -186,3 +186,51 @@ function t_text_show(scene_name='text_show') {
 
     return scene;
 }
+
+// TEST: anime text node
+function t_text_anime(scene_name='text_anime') {
+    const test_cases = [
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [255, 166, 148, 255],
+            'animeSpeed': 2,
+        },
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [117, 184, 114, 255],
+            'animeSpeed': 4,
+        },
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河', 
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [148, 193, 255, 255],
+            'animeSpeed': 8,
+        }
+    ];
+
+    const scene = new Scene(scene_name);
+    
+    scene.reloadSelf = function() {
+        this.activate();
+        this.show();
+    };
+
+    test_cases.forEach((p, i) => {
+        let atn = new AnimeTextNode('text'+i, p['content'], p['animeSpeed'], true);
+        atn
+          .font(p['font'])
+          .fontSize(p['fontSize'])
+          .color(p['color']);
+        
+        atn.setTranslate(100, 60*(i+1));
+        
+        scene.addChild(atn);
+    });
+
+    return scene;
+}
