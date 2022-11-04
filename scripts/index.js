@@ -5,6 +5,7 @@ var sm;
 function preload(){
   // create scene manager
   sm = new getSceneManager();
+  loadFonts();
 }
 
 async function setup() {
@@ -74,7 +75,7 @@ async function setup() {
   }
   else{
     // activate scene1
-    PubSub.publish("scene1-1","reload")
+    PubSub.publish(sm.scenes[0].name,"reload")
 
 
  
