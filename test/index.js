@@ -5,12 +5,12 @@ var sm;
 function preload(){
   // create scene manager
   sm = new getSceneManager();
+  loadFonts();    // load the fonts declared in fonts.js
 }
 
 async function setup() {
 
   cv = createCanvas(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-  resetCanvasSize();
   cv.elt.style.zIndex = 1000;
   
   // create scene loaders
@@ -24,8 +24,12 @@ async function setup() {
   await Promise.all([loader1.load(), loader2.load(), loader3.load(), loader_buttons.load(), loader_cats.load()]);
 
   // add scenes to scene manager
-  sm.addScene(t_font_family());
+  sm.addScene(t_text_font());
   sm.addScene(t_text_scaling());
+  sm.addScene(t_render_blob());
+  sm.addScene(t_text_show());
+
+  resetCanvasSize();
   
   // jump to specific page using url search parameter
   let url = new URL(window.location.href);
@@ -35,7 +39,7 @@ async function setup() {
     PubSub.publish(p,"reload");
   }else {
     // activate scene1
-    PubSub.publish("scene1-1","reload");
+    PubSub.publish(sm.scenes[0].name,"reload");
   }
 }
 
