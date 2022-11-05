@@ -12,6 +12,9 @@ async function setup() {
 
   cv = createCanvas(DEFAULT_WIDTH, DEFAULT_HEIGHT);
   cv.elt.style.zIndex = 1000;
+  cv.elt.style.padding="0px 0px 0px 0px";
+  cv.elt.style.display="block"
+  cv.parent('p5-container')
   rectMode(CENTER)
   textSize(32);
   text('Loading', windowWidth/2, windowHeight/2);

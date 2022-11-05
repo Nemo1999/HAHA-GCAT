@@ -205,7 +205,7 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
   //const tk = mouseTracker(sm);
   const btn_start = new SpriteNode(loader_buttons.get_handle(["btn-start.png", "btn-start-hovered.png"]),false, true);
   const agreebox = new SpriteNode(loader_buttons.get_handle(["agreebox.png","agreebox-checked.png"]),false, true);
-  const text = new SizeNode("text box", 506, 416, false, true)
+  const text = new SizeNode("text box", 500, 219, false, true)
   const leaf_scatter = new Node("leaf-scatter", false)
   const leaf_nodes = []
   const leaf_names = ["leaf-gray.png", "leaf-green.png", "leaf-light-green.png", "leaf-texture-gray.png", "leaf-texture-light-green.png"]
@@ -220,9 +220,16 @@ function make_scene_12(loader,loader_buttons ,scene_name="scene1-2"){
 
   // define text node
   text.state.element = document.getElementById("user-agreement");
-  text.reloadSelf = function(){
+  text.setTranslate((DEFAULT_WIDTH - text.size[0]) / 2 , 219)
+  text.drawSelf = function(){
     // show the text element
     text.state.element.style.display = "block";
+    
+    text.state.element.style.width = String(Math.round(DEFAULT_WIDTH * this.accScale * 0.36)) + "px"
+    text.state.element.style.height = String(Math.round(DEFAULT_HEIGHT * this.accScale * 0.50)) + "px"
+    text.state.element.style.marginTop = String(Math.round(this.accY + (windowHeight - DEFAULT_HEIGHT * this.accScale) / 2 )) + "px"
+    text.state.element.style.marginLeft = String(Math.round(this.accX + (windowWidth - DEFAULT_WIDTH * this.accScale) / 2)) + "px"
+
   }
 
   text.unloadSelf = function(){
