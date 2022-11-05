@@ -1,18 +1,16 @@
 
 
 var sm;
-const DEFAULT_WIDTH = 1440, DEFAULT_HEIGHT = 680;
-const cvAspectRatio = DEFAULT_HEIGHT/DEFAULT_WIDTH;
 
 function preload(){
   // create scene manager
   sm = new getSceneManager();
+  loadFonts();    // load the fonts declared in fonts.js
 }
 
 async function setup() {
 
   cv = createCanvas(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-  resetCanvasSize();
   cv.elt.style.zIndex = 1000;
   
   // create scene loaders
@@ -26,8 +24,14 @@ async function setup() {
   await Promise.all([loader1.load(), loader2.load(), loader3.load(), loader_buttons.load(), loader_cats.load()]);
 
   // add scenes to scene manager
-  const scene = t_local_scaling();
-  sm.addScene(scene);
+  sm.addScene(t_text_font());
+  sm.addScene(t_text_color());
+  sm.addScene(t_text_scaling());
+  sm.addScene(t_render_blob());
+  sm.addScene(t_text_show());
+  sm.addScene(t_text_anime());
+
+  resetCanvasSize();
   
   // jump to specific page using url search parameter
   let url = new URL(window.location.href);
@@ -37,7 +41,7 @@ async function setup() {
     PubSub.publish(p,"reload");
   }else {
     // activate scene1
-    PubSub.publish("scene1-1","reload");
+    PubSub.publish(sm.scenes[0].name,"reload");
   }
 }
 
@@ -51,12 +55,12 @@ function draw() {
  */
 function resetCanvasSize() {
   let winAspectRatio = windowHeight / windowWidth;
-  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，計算視窗寬及畫布寬的比例：反之則計算高比例
-  let scale = winAspectRatio > cvAspectRatio? windowWidth / width : windowHeight / height;
-  resizeCanvas(width * scale, height * scale);
+  // 比較視窗縱橫比及畫布縱橫比，若視窗縱橫比較大則代表視窗高度比預期的高度高，以視窗寬及畫布寬的比例作為縮放比：反之則計算高比例
+  let scale = winAspectRatio > cvAspectRatio? windowWidth / DEFAULT_WIDTH : windowHeight / DEFAULT_HEIGHT;
+  resizeCanvas(DEFAULT_WIDTH * scale, DEFAULT_HEIGHT * scale);
   sm.scenes.forEach(scene => {
     scene.setScale(scale);
-  })
+  });
 }
 
 /**
