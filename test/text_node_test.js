@@ -187,6 +187,50 @@ function t_text_show(scene_name='text_show') {
     return scene;
 }
 
+// TEST: show/hide text nodes
+function t_text_init_hide(scene_name = 'text_init_hide') {
+    const test_cases = [
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [255, 166, 148, 255],
+            'show': true,
+        },
+        {
+            'content': 'HAHA-GCAT 綠毛蟲要過河',
+            'font': font_huninn,
+            'fontSize': 32,
+            'color': [148, 193, 255, 255],
+            'show': false,
+        }
+    ];
+
+    const scene = new Scene(scene_name);
+
+    scene.reloadSelf = function () {
+        this.activate();
+        this.show();
+    };
+
+    test_cases.forEach((p, i) => {
+        let text_node = new TextNode('text' + i, p['content'], true);
+        text_node
+            .font(p['font'])
+            .fontSize(p['fontSize'])
+            .color(p['color']);
+        text_node.setTranslate(100, 60 * (i + 1));
+        text_node.hide();
+        if (p['show']) {
+            text_node.show();
+        }
+
+        scene.addChild(text_node);
+    });
+
+    return scene;
+}
+
 // TEST: anime text node
 function t_text_anime(scene_name='text_anime') {
     const test_cases = [

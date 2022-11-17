@@ -30,6 +30,7 @@ async function setup() {
   sm.addScene(t_render_blob());
   sm.addScene(t_text_show());
   sm.addScene(t_text_anime());
+  sm.addScene(t_text_init_hide());
 
   resetCanvasSize();
   
